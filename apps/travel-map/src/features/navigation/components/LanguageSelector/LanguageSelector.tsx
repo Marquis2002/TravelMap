@@ -14,6 +14,7 @@ import { classNames } from "@/shared/lib/classNames";
 import { LanguageFlag } from "../LanguageFlag/LanguageFlag";
 const possibleLanguages = [...SUPPORTED_LOCALES] as const;
 const LANGUAGE_LABELS: Record<string, string> = {
+  "zh-CN": "简体中文",
   "en-US": "English",
   "it-IT": "Italiano",
 };

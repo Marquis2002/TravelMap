@@ -1,11 +1,11 @@
 /** Locales supported by the application. */
-export const SUPPORTED_LOCALES = ["en-US", "it-IT"] as const;
+export const SUPPORTED_LOCALES = ["zh-CN", "en-US", "it-IT"] as const;
 
 /** A locale supported by the application. */
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 
 /** The fallback locale used when a requested locale is unsupported. */
-export const DEFAULT_LOCALE: SupportedLocale = "en-US";
+export const DEFAULT_LOCALE: SupportedLocale = "zh-CN";
 
 /**
  * Checks whether a locale is supported by the application.
@@ -32,6 +32,7 @@ export function normalizeLocale(input?: string | null): SupportedLocale {
   if (isSupportedLocale(normalized)) return normalized;
 
   const lower = normalized.toLowerCase();
+  if (lower.startsWith("zh")) return "zh-CN";
   if (lower.startsWith("it")) return "it-IT";
   if (lower.startsWith("en")) return "en-US";
 

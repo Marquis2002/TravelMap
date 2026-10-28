@@ -82,7 +82,7 @@ export function getTripBounds(trip: Trip): LngLatBounds | null {
 
   for (const destination of trip.destinations) {
     if (destination.kind !== "stopover") {
-      cities.set(destination.city.name, destination.city);
+      cities.set(destination.city.id, destination.city);
     }
   }
 

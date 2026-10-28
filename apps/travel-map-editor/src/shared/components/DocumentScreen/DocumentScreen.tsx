@@ -65,8 +65,8 @@ export function DocumentScreen({
       await onDelete();
       showToast(deletedMessage ?? t("toast.documentDeleted"));
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : t("editorForm.deleteError");
+      console.error(error);
+      const errorMessage = t("editorForm.deleteError");
       setMessage(errorMessage);
       showToast(errorMessage, "error");
     }

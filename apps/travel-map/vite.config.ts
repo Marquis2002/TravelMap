@@ -128,10 +128,29 @@ export default defineConfig({
     svgr(),
     qrcode(),
     siteBranding(siteConfig),
+    {
+      name: "watch-travel-data",
+      apply: "serve",
+
+      /**
+       * Watches the dataset outside the app root, including a first trip added
+       * to an initially empty collection.
+       * @param {import("vite").ViteDevServer} server - Active development server
+       * @returns {void}
+       */
+      configureServer(server): void {
+        server.watcher.add(resolve(import.meta.dirname, "../../data"));
+      },
+    },
     mediaServer(resolve(import.meta.dirname, "../../media")),
   ],
   base: "/",
-  server: { watch: { usePolling: true }, host: true },
+  server: {
+    host: "0.0.0.0",
+    port: 5173,
+    strictPort: true,
+    watch: { usePolling: true },
+  },
   css: { postcss: { plugins: [autoprefixer({})] } },
   resolve: {
     alias: [{ find: "@", replacement: resolve(import.meta.dirname, "./src") }],

@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { CityMatch, CityMatchSchema } from "../../../shared/lib/cityMatch";
 import { parseJsonResponse } from "../../../shared/lib/httpResponse";
 import {
   findWorldCountryByCode,
@@ -7,37 +8,15 @@ import {
 } from "../../../shared/lib/worldCountries";
 
 /**
- * A city from the world gazetteer, ready to become a dataset document.
- * @property {[number, number]} coordinates - Longitude and latitude, in dataset order
- * @property {WorldCountry} [country] - The owning country, when the map knows it
- * @property {string} countryCode - The ISO 3166-1 alpha-2 country code
- * @property {string} key - A stable identity for list rendering
- * @property {string} name - The city's local name
- * @property {number} population - Inhabitants, used to rank matches
- * @property {string} timeZone - The IANA timezone covering the coordinates
+ * A validated gazetteer match enriched with the owning country from the map catalogue.
+ * @property {WorldCountry} [country] - Owning country when supported by the map
  */
-export interface WorldCity {
-  coordinates: [number, number];
+export interface WorldCity extends CityMatch {
   country?: WorldCountry;
-  countryCode: string;
-  key: string;
-  name: string;
-  population: number;
-  timeZone: string;
 }
 
-/** Gazetteer response before countries are attached. */
 const CityResponseSchema = z.strictObject({
-  matches: z.array(
-    z.strictObject({
-      coordinates: z.tuple([z.number().finite(), z.number().finite()]),
-      countryCode: z.string().length(2),
-      key: z.string().min(1),
-      name: z.string().min(1),
-      population: z.number().nonnegative(),
-      timeZone: z.string().min(1),
-    }),
-  ),
+  matches: z.array(CityMatchSchema),
 });
 
 /** Timezone lookup response from the local city index. */

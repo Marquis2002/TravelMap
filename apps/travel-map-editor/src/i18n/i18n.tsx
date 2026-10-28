@@ -22,7 +22,7 @@ i18next
     interpolation: { escapeValue: false },
     saveMissing: false,
     detection: {
-      order: ["localStorage", "navigator"],
+      order: ["localStorage"],
       caches: ["localStorage"],
       convertDetectedLanguage: (lng: string) => normalizeLocale(lng),
     },

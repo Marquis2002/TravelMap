@@ -84,7 +84,7 @@ function useOpenGallery(): (city: City, index: number) => void {
   const navigate = useNavigate();
   const location = useLocation();
   return (city, index) =>
-    void navigate(`/gallery/${city.name}/${index}`, {
+    void navigate(`/gallery/${city.id}/${index}`, {
       state: { fromPath: `${location.pathname}${location.search}` },
     });
 }
@@ -100,7 +100,7 @@ function useOpenGallery(): (city: City, index: number) => void {
 function rideFacts(leg: TripLeg, lang: string): string[] {
   const operator = leg.flight?.company ?? leg.ferryCompany;
   return [
-    `${leg.duration.estimated ? "~" : ""}${formatDuration(leg.duration.value)}`,
+    `${leg.duration.estimated ? "~" : ""}${formatDuration(leg.duration.value, lang)}`,
     `${leg.distance.estimated ? "~" : ""}${formatMileage(leg.distance.value, lang, 0)} km`,
     [operator ? resolveCompany(operator).name : null, leg.flight?.number]
       .filter(Boolean)

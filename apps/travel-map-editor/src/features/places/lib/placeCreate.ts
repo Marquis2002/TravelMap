@@ -3,6 +3,7 @@ import { CityJson, CountryJson, deriveLegDistance } from "@travelmap/core";
 import { locales } from "../../../data/dataset";
 import { cityPath, countryPath, toId, uniqueId } from "../../../data/paths";
 import { DatasetSnapshot, DocumentWrite } from "../../../data/store";
+import { foldPlaceName } from "../../../shared/lib/cityMatch";
 import { translationsForLocales } from "../../../shared/lib/worldCountries";
 import { WorldCity } from "./gazetteer";
 
@@ -72,8 +73,8 @@ export function findNearbyCity(
 
 /**
  * Works out what adding a gazetteer match would create.
- * An existing city with the same name in the same country, or at effectively
- * the same coordinates, is reused instead of creating a duplicate document.
+ * Reuses stable source identities; legacy documents need both a name match
+ * and nearby coordinates in the same country to avoid merging homonyms.
  * @param {DatasetSnapshot} dataset - The current dataset
  * @param {WorldCity} city - The chosen gazetteer entry
  * @returns {PlannedPlace | null} The plan, or null when the country is unknown
@@ -85,13 +86,24 @@ export function planPlace(
   if (!city.country) return null;
 
   const nearbyCityId = findNearbyCity(dataset, city.coordinates);
-  const normalizedName = city.name.trim().toLocaleLowerCase();
-  const byName = dataset.cities.find(
-    ({ value }) =>
-      value.countryId === city.country?.id &&
-      value.name.trim().toLocaleLowerCase() === normalizedName,
-  );
-  const reused = byName?.value.id ?? nearbyCityId;
+  const names = [
+    city.name,
+    ...Object.values(city.nameByLocale ?? {}),
+    ...(city.aliases ?? []),
+  ].map(foldPlaceName);
+  const matches = dataset.cities.filter(({ value }) => {
+    if (value.countryId !== city.country?.id) return false;
+    if (value.gazetteerKey && city.gazetteerKey)
+      return value.gazetteerKey === city.gazetteerKey;
+    return (
+      [value.name, ...Object.values(value.nameByLocale ?? {})].some((name) =>
+        names.includes(foldPlaceName(name)),
+      ) &&
+      deriveLegDistance(value.coordinates, city.coordinates) <=
+        DUPLICATE_RADIUS_KM
+    );
+  });
+  const reused = matches.length === 1 ? matches[0]?.value.id : undefined;
   if (reused)
     return {
       cityId: reused,
@@ -120,12 +132,14 @@ export function planPlace(
   }
 
   const cityId = uniqueId(
-    toId(city.name),
+    city.gazetteerKey ? toId(city.gazetteerKey) : toId(city.name),
     dataset.cities.map(({ value }) => value.id),
   );
   const document: CityJson = {
     id: cityId,
     name: city.name,
+    nameByLocale: city.nameByLocale,
+    gazetteerKey: city.gazetteerKey,
     countryId: country.id,
     coordinates: city.coordinates,
     population: city.population,
@@ -166,6 +180,7 @@ export function planManualPlace(
   const document: CityJson = {
     id: cityId,
     name,
+    nameByLocale: /\p{Script=Han}/u.test(name) ? { "zh-CN": name } : undefined,
     countryId,
     coordinates,
     timeZone,

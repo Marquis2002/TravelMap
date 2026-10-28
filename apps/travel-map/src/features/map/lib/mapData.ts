@@ -7,7 +7,12 @@ import type {
   Position,
 } from "geojson";
 
-import { futureCities, livedCities, visitedCities } from "@/data/world";
+import {
+  futureCities,
+  livedCities,
+  visitedCities,
+  visitedCountries,
+} from "@/data/world";
 
 import { countriesGeoJson, CountryProperties } from "./countries";
 import { ringArea, ringCentroid } from "./geo";
@@ -81,7 +86,12 @@ function createCountryLabel(
   return [
     {
       type: "Feature",
-      properties: { name: country.properties.name },
+      properties: {
+        name: country.properties.name,
+        ...visitedCountries.find(
+          (visited) => visited.name === country.properties.name,
+        )?.nameByLocale,
+      },
       geometry: {
         type: "Point",
         coordinates: ringCentroid(largestRing),
@@ -93,12 +103,19 @@ function createCountryLabel(
 /**
  * Creates a population-ranked label point for one city.
  * @param {City} city - The city represented by the label
+ * @param {string} locale - Display language
  * @returns {Feature<Point, CityLabelProperties>} The city label feature
  */
-function createCityLabel(city: City): Feature<Point, CityLabelProperties> {
+function createCityLabel(
+  city: City,
+  locale: string,
+): Feature<Point, CityLabelProperties> {
   return {
     type: "Feature",
-    properties: { name: city.name, population: city.population ?? 0 },
+    properties: {
+      name: city.getLocalizedName(locale),
+      population: city.population ?? 0,
+    },
     geometry: { type: "Point", coordinates: city.coordinates },
   };
 }
@@ -111,13 +128,23 @@ export const countryLabelsGeoJson: FeatureCollection<Point, CountryProperties> =
 
 const labelCities = new Map(
   [...visitedCities, ...futureCities, ...livedCities].map((city) => [
-    city.name,
+    city.id,
     city,
   ]),
 );
 
-export const cityLabelsGeoJson: FeatureCollection<Point, CityLabelProperties> =
-  {
+/**
+ * Rebuilds only city display labels when language changes, preserving all feature identities.
+ * @param {string} locale - Active display language
+ * @returns {FeatureCollection<Point, CityLabelProperties>} Localized city points
+ */
+export function cityLabelsGeoJson(
+  locale: string,
+): FeatureCollection<Point, CityLabelProperties> {
+  return {
     type: "FeatureCollection",
-    features: Array.from(labelCities.values(), createCityLabel),
+    features: Array.from(labelCities.values(), (city) =>
+      createCityLabel(city, locale),
+    ),
   };
+}

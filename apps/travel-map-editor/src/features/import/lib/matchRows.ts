@@ -1,6 +1,7 @@
 import { daysBetween, TripJson } from "@travelmap/core";
 
 import { DatasetSnapshot, DocumentWrite } from "../../../data/store";
+import { foldPlaceName } from "../../../shared/lib/cityMatch";
 import { importPlace } from "../../itinerary/lib/itinerary";
 import { searchWorldCities, WorldCity } from "../../places/lib/gazetteer";
 import { findNearbyCity, planPlace } from "../../places/lib/placeCreate";
@@ -31,18 +32,9 @@ export interface MatchedRow {
 const CANDIDATE_LIMIT = 6;
 
 /**
- * Folds a name for comparison so "Firenze" and "firenze " match.
- * @param {string} value - The name to fold
- * @returns {string} The folded name
- */
-function fold(value: string): string {
-  return value.normalize("NFD").replace(/[̀-ͯ]/g, "").trim().toLowerCase();
-}
-
-/**
  * Resolves every imported row against the dataset first and the gazetteer
- * second. Reuse always wins over creation: an import that quietly produced a
- * second Rome would be worse than one that failed outright.
+ * second. An existing name without coordinates still needs disambiguation
+ * when the gazetteer knows multiple places with that name.
  * @param {ParsedRow[]} rows - Rows to resolve
  * @param {DatasetSnapshot} dataset - The current dataset
  * @param {AbortSignal} [signal] - Cancels a superseded run
@@ -53,14 +45,21 @@ export async function matchRows(
   dataset: DatasetSnapshot,
   signal?: AbortSignal,
 ): Promise<MatchedRow[]> {
-  const byName = new Map(
-    dataset.cities.map(({ value }) => [fold(value.name), value.id] as const),
-  );
   const matched: MatchedRow[] = [];
 
   for (const row of rows) {
-    const existing = byName.get(fold(row.name));
-    if (existing) {
+    const named = dataset.cities.filter(({ value }) =>
+      [value.name, ...Object.values(value.nameByLocale ?? {})].some(
+        (name) => foldPlaceName(name) === foldPlaceName(row.name),
+      ),
+    );
+    const existing =
+      named.length === 1 &&
+      (!row.coordinates ||
+        findNearbyCity({ ...dataset, cities: named }, row.coordinates))
+        ? named[0]?.value.id
+        : undefined;
+    if (existing && row.coordinates) {
       matched.push({
         candidates: [],
         cityId: existing,
@@ -68,18 +67,6 @@ export async function matchRows(
         row,
       });
       continue;
-    }
-    if (row.coordinates) {
-      const nearby = findNearbyCity(dataset, row.coordinates);
-      if (nearby) {
-        matched.push({
-          candidates: [],
-          cityId: nearby,
-          disposition: "reuse",
-          row,
-        });
-        continue;
-      }
     }
 
     let candidates: WorldCity[];
@@ -90,21 +77,24 @@ export async function matchRows(
       candidates = [];
     }
     const usable = candidates.filter((candidate) => candidate.country);
+    if (existing && usable.length <= 1) {
+      matched.push({
+        candidates: [],
+        cityId: existing,
+        disposition: "reuse",
+        row,
+      });
+      continue;
+    }
     const best = usable[0];
     if (!best) {
       matched.push({ candidates: [], disposition: "unmatched", row });
       continue;
     }
-    /*
-     * A second candidate within an order of magnitude of the first is a real
-     * ambiguity — "Springfield" — rather than a capital beating a hamlet.
-     */
-    const second = usable[1];
-    const isAmbiguous =
-      second !== undefined && second.population * 10 > best.population;
+    const isAmbiguous = usable.length > 1;
     matched.push({
       candidates: usable,
-      chosen: best,
+      chosen: isAmbiguous ? undefined : best,
       disposition: isAmbiguous ? "ambiguous" : "create",
       row,
     });
@@ -154,7 +144,10 @@ export function planImport(
   let skipped = 0;
 
   for (const matched of rows) {
-    if (matched.disposition === "unmatched") {
+    if (
+      matched.disposition === "unmatched" ||
+      matched.disposition === "ambiguous"
+    ) {
       skipped += 1;
       continue;
     }
@@ -167,11 +160,13 @@ export function planImport(
       }
       cityId = plan.cityId;
       if (!pending.has(cityId)) {
-        writes.push(...plan.writes);
+        writes.push(
+          ...plan.writes.filter(
+            (write) => !writes.some((previous) => previous.path === write.path),
+          ),
+        );
         pending.add(cityId);
-        for (const write of plan.writes)
-          if (write.path.split("/").length === 3)
-            coordinates.set(cityId, matched.chosen.coordinates);
+        coordinates.set(cityId, matched.chosen.coordinates);
         created += 1;
       } else reused += 1;
     } else if (cityId) reused += 1;

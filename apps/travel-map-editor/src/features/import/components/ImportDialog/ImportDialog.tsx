@@ -15,6 +15,8 @@ import {
 
 import { applyWrites } from "../../../../data/store";
 import { useDataset } from "../../../../shared/hooks/useDataset";
+import { cityRegion } from "../../../../shared/lib/cityMatch";
+import { placeName } from "../../../../shared/lib/placeName";
 import { snapshotBeforeChange } from "../../../backup/lib/snapshots";
 import { WorldCity } from "../../../places/lib/gazetteer";
 import {
@@ -45,7 +47,7 @@ export function ImportDialog({
   onImported,
   trip,
 }: ImportDialogProps): ReactNode {
-  const { t } = useLanguage(["editor"]);
+  const { t, currLanguage } = useLanguage(["editor"]);
   const dataset = useDataset();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -162,6 +164,7 @@ export function ImportDialog({
    * @returns {Promise<void>} Completion once the import is applied
    */
   async function handleApply(): Promise<void> {
+    if (rows.some((row) => row.disposition === "ambiguous")) return;
     try {
       await snapshotBeforeChange("before import");
       if (parsed?.trip) {
@@ -174,7 +177,8 @@ export function ImportDialog({
       onImported(plan.trip);
       onClose();
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : t("import.failed"));
+      console.error(error);
+      setMessage(t("import.failed"));
     }
   }
   return (
@@ -278,7 +282,13 @@ export function ImportDialog({
                       <td>{matched.row.name}</td>
                       <td>
                         {matched.disposition === "reuse" ? (
-                          t("import.reuse", { city: matched.cityId })
+                          t("import.reuse", {
+                            city: placeName(
+                              dataset.cities.find(
+                                ({ value }) => value.id === matched.cityId,
+                              )?.value,
+                            ),
+                          })
                         ) : matched.disposition === "unmatched" ? (
                           <span className="import-dialog__unmatched">
                             {t("import.unmatched")}
@@ -294,14 +304,22 @@ export function ImportDialog({
                                 }
                                 type="button"
                               >
-                                {candidate.name} · {candidate.country?.name}
+                                {placeName(candidate)} ·{" "}
+                                {cityRegion(candidate) ||
+                                  new Intl.DisplayNames([currLanguage], {
+                                    type: "region",
+                                  }).of(candidate.countryCode)}
                               </button>
                             ))}
                           </span>
                         ) : (
                           t("import.create", {
-                            city: matched.chosen?.name,
-                            country: matched.chosen?.country?.name,
+                            city: placeName(matched.chosen),
+                            country: matched.chosen
+                              ? new Intl.DisplayNames([currLanguage], {
+                                  type: "region",
+                                }).of(matched.chosen.countryCode)
+                              : "",
                           })
                         )}
                       </td>
@@ -314,6 +332,7 @@ export function ImportDialog({
           <div className="import-dialog__actions">
             <button
               className="editor-button editor-button--primary"
+              disabled={rows.some((row) => row.disposition === "ambiguous")}
               onClick={handleApply}
               type="button"
             >

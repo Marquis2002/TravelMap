@@ -73,7 +73,15 @@
     "transportModes": "Modi di trasporto",
     "flightCompanies": "Compagnie aeree",
     "ferryCompanies": "Compagnie di traghetti",
-    "citiesPerCountry": "Città per Paese"
+    "citiesPerCountry": "Città per Paese",
+    "provinces": {
+      "title": "Copertura delle province cinesi",
+      "hint": "Usa gli stessi luoghi visitati dei continenti. Ogni regione conta una volta, incluse Hong Kong, Macao e Taiwan.",
+      "visited": "Visitata",
+      "unvisited": "Non visitata",
+      "loading": "Caricamento delle province…",
+      "failed": "Impossibile caricare le province. Ricarica per riprovare."
+    }
   },
   "deselectAll": "Deseleziona tutto",
   "filterTooltip": "Filtra le città sulla mappa in base al paese selezionato.",
@@ -87,7 +95,12 @@
   "theme": "Passa tra modalità chiara e scura",
   "map": {
     "zoomIn": "Aumenta lo zoom",
-    "zoomOut": "Riduci lo zoom"
+    "zoomOut": "Riduci lo zoom",
+    "regions": "Regioni e livelli",
+    "china": "Cina",
+    "world": "Mondo",
+    "provinces": "Province",
+    "provinceSource": "Confini: DataV"
   },
   "lightbox": {
     "fullscreen": "Attiva/disattiva schermo intero",

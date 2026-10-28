@@ -121,7 +121,7 @@ export function MapTooltip({
             hoverScale={1}
             onClick={() => {
               onClose();
-              navigate(`/gallery/${city.name}/${galleryIndex}`, {
+              navigate(`/gallery/${city.id}/${galleryIndex}`, {
                 state: { fromPath: `${location.pathname}${location.search}` },
               });
             }}

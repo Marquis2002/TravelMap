@@ -29,6 +29,7 @@ import {
   NumberField,
   TextField,
 } from "../../../../shared/components/Fields/Fields";
+import { placeName } from "../../../../shared/lib/placeName";
 import { PhotosField } from "../../../photos/components/PhotosField/PhotosField";
 import { cityOptions } from "../../../places/lib/placeOptions";
 
@@ -159,7 +160,7 @@ export function LegEditor({
   onChange,
   onRemove,
 }: LegEditorProps): ReactNode {
-  const { t } = useLanguage(["editor"]);
+  const { t, currLanguage } = useLanguage(["editor"]);
   const { confirm, confirmDialog } = useConfirm();
   const cities = new Map(
     dataset.cities.map(({ value }) => [value.id, value] as const),
@@ -187,7 +188,7 @@ export function LegEditor({
       : (departs ?? arrives);
   const facts = [
     duration
-      ? `${duration.estimated ? "~" : ""}${formatDuration(duration.value)}`
+      ? `${duration.estimated ? "~" : ""}${formatDuration(duration.value, currLanguage)}`
       : null,
     distance
       ? `${distance.estimated ? "~" : ""}${Math.round(distance.value)} km`
@@ -220,7 +221,7 @@ export function LegEditor({
         <span className="leg-editor__body">
           <span className="leg-editor__line">
             <span className="leg-editor__route">
-              {from?.name ?? fromId} → {to?.name ?? leg.toId}
+              {placeName(from, fromId)} → {placeName(to, leg.toId)}
               {leg.visited || (isDayTrip && !isReturn) ? (
                 <span className="leg-editor__badge">{t("story.visited")}</span>
               ) : null}
@@ -281,7 +282,7 @@ export function LegEditor({
               hint={
                 duration?.estimated
                   ? t("story.estimatedHint", {
-                      value: formatDuration(duration.value),
+                      value: formatDuration(duration.value, currLanguage),
                     })
                   : undefined
               }
@@ -378,8 +379,8 @@ export function LegEditor({
                 message: t("confirm.removeRide.message"),
                 onConfirm: onRemove,
                 title: t("confirm.removeRide.title", {
-                  from: from?.name ?? fromId,
-                  to: to?.name ?? leg.toId,
+                  from: placeName(from, fromId),
+                  to: placeName(to, leg.toId),
                 }),
               })
             }

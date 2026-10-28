@@ -1,5 +1,6 @@
 import { DatasetSnapshot } from "../../../data/store";
 import { ComboboxOption } from "../../../shared/components/Combobox/Combobox";
+import { placeName } from "../../../shared/lib/placeName";
 import { findWorldCountry } from "../../../shared/lib/worldCountries";
 
 /**
@@ -10,8 +11,9 @@ import { findWorldCountry } from "../../../shared/lib/worldCountries";
 export function countryOptions(dataset: DatasetSnapshot): ComboboxOption[] {
   return dataset.countries.map(({ value }) => ({
     iconUrl: findWorldCountry(value.id)?.flagUrl,
-    label: value.name,
+    label: placeName(value),
     value: value.id,
+    searchNames: [value.name, ...Object.values(value.nameByLocale ?? {})],
   }));
 }
 
@@ -22,10 +24,16 @@ export function countryOptions(dataset: DatasetSnapshot): ComboboxOption[] {
  */
 export function cityOptions(dataset: DatasetSnapshot): ComboboxOption[] {
   return dataset.cities.map(({ value }) => ({
-    hint: value.countryId,
+    hint: placeName(
+      dataset.countries.find(
+        ({ value: country }) => country.id === value.countryId,
+      )?.value,
+      value.countryId,
+    ),
     iconUrl: findWorldCountry(value.countryId)?.flagUrl,
-    label: value.name,
+    label: placeName(value),
     value: value.id,
+    searchNames: [value.name, ...Object.values(value.nameByLocale ?? {})],
   }));
 }
 

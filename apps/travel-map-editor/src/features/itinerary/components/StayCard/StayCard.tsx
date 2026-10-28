@@ -16,6 +16,7 @@ import { Combobox } from "../../../../shared/components/Combobox/Combobox";
 import { useConfirm } from "../../../../shared/components/ConfirmDialog/ConfirmDialog";
 import { DatePicker } from "../../../../shared/components/DatePicker/DatePicker";
 import { NumberField } from "../../../../shared/components/Fields/Fields";
+import { placeName } from "../../../../shared/lib/placeName";
 import { findWorldCountry } from "../../../../shared/lib/worldCountries";
 import { PhotosField } from "../../../photos/components/PhotosField/PhotosField";
 import { cityOptions } from "../../../places/lib/placeOptions";
@@ -82,7 +83,7 @@ export function StayCard({
   const cityJson = dataset.cities.find(
     ({ value }) => value.id === stay.cityId,
   )?.value;
-  const city = cityJson?.name ?? stay.cityId;
+  const city = placeName(cityJson, stay.cityId);
   const color = dataset.countries.find(
     ({ value }) => value.id === cityJson?.countryId,
   )?.value.color;

@@ -136,9 +136,8 @@ export function PhotoImportDialog({
       onLink(manifestKeyFor(path));
       setStage("done");
     } catch (error) {
-      setMessage(
-        error instanceof Error ? error.message : t("photoImport.failed"),
-      );
+      console.error(error);
+      setMessage(t("photoImport.failed"));
     }
   }
 

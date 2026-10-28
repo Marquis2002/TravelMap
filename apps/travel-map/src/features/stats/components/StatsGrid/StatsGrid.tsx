@@ -34,6 +34,7 @@ import { CurrencyCard } from "./cards/CurrencyCard";
 import { DaysPerYearCard } from "./cards/DaysPerYearCard";
 import { MileageCard } from "./cards/MileageCard";
 import { PopulationCard } from "./cards/PopulationCard";
+import { ProvinceCoverageCard } from "./cards/ProvinceCoverageCard";
 import { TransportCard } from "./cards/TransportCard";
 import { TransportModesCard } from "./cards/TransportModesCard";
 
@@ -142,6 +143,7 @@ export function StatsGrid({
             totalContinents={TOTAL_CONTINENTS}
             visitedContinents={stats.visitedContinents}
           />
+          <ProvinceCoverageCard />
 
           <StatTile
             className="bento-stat--globe"

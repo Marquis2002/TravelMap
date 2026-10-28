@@ -74,7 +74,11 @@ export function tripSearchTerms(
     trip.title,
     trip.sDate,
     ...Object.values(trip.titleByLocale ?? {}),
-    ...stopCities.flatMap((city) => (city ? [city.name, city.countryId] : [])),
+    ...stopCities.flatMap((city) =>
+      city
+        ? [city.name, city.countryId, ...Object.values(city.nameByLocale ?? {})]
+        : [],
+    ),
   ];
 }
 

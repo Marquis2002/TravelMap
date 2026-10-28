@@ -10,6 +10,7 @@ import {
   NumberField,
   TextField,
 } from "../../../../shared/components/Fields/Fields";
+import { placeName } from "../../../../shared/lib/placeName";
 import { timeZoneAt, WorldCity } from "../../lib/gazetteer";
 import { planManualPlace, planPlace } from "../../lib/placeCreate";
 import { cityOptions, countryOptions } from "../../lib/placeOptions";
@@ -88,9 +89,8 @@ export function AddPlaceDialog({
       onPlace(plan.cityId);
       onClose();
     } catch (error) {
-      setMessage(
-        error instanceof Error ? error.message : t("addPlace.writeFailed"),
-      );
+      console.error(error);
+      setMessage(t("addPlace.writeFailed"));
     }
   }
 
@@ -116,9 +116,8 @@ export function AddPlaceDialog({
       onPlace(manual.cityId);
       onClose();
     } catch (error) {
-      setMessage(
-        error instanceof Error ? error.message : t("addPlace.writeFailed"),
-      );
+      console.error(error);
+      setMessage(t("addPlace.writeFailed"));
     }
   }
   return (
@@ -159,8 +158,14 @@ export function AddPlaceDialog({
         <div className="add-place__plan">
           <p className="add-place__plan-title">
             {plan.isExisting
-              ? t("addPlace.reusesExisting", { city: plan.cityId })
-              : t("addPlace.willCreateCity", { city: plan.cityId })}
+              ? t("addPlace.reusesExisting", {
+                  city: placeName(
+                    dataset.cities.find(({ value }) => value.id === plan.cityId)
+                      ?.value,
+                    plan.cityId,
+                  ),
+                })
+              : t("addPlace.willCreateCity", { city: placeName(picked) })}
           </p>
           {plan.createsCountry ? (
             <p className="editor-panel__hint">

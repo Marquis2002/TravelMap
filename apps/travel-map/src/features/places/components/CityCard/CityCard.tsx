@@ -141,7 +141,7 @@ export function CityCard({
    * @returns {void}
    */
   const openGallery = () => {
-    navigate(`/gallery/${city.name}/${travelIdx}`, {
+    navigate(`/gallery/${city.id}/${travelIdx}`, {
       state: { fromPath: `${location.pathname}${location.search}` },
     });
   };

@@ -367,7 +367,7 @@ export function PlacesBrowser(): ReactNode {
                     <CityCard
                       city={city}
                       isClickable
-                      key={city.name}
+                      key={city.id}
                       setHoveredCity={setHoveredCity}
                       setMapPosition={setMapPosition}
                     />

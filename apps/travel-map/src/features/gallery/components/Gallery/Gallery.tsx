@@ -89,7 +89,7 @@ export function Gallery(): ReactNode {
         <h2>{city.getLocalizedName(currLanguage)}</h2>
         <CountryFlag className="gallery__flag" countryId={city.country.id} />
         <TravelSelector
-          cityName={city.name}
+          cityName={city.id}
           navigationState={navigationState}
           selectedTravelIdx={travelIdx}
           travels={getCityPhotoTravels(city, visitedTrips)}

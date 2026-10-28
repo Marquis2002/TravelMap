@@ -43,7 +43,7 @@ import { useTripWorkspace } from "../../Workspace.state";
  * @returns {ReactNode} The trip workspace
  */
 export function Workspace({ file, isDarkTheme }: WorkspaceProps): ReactNode {
-  const { t } = useLanguage(["editor"]);
+  const { t, currLanguage } = useLanguage(["editor"]);
   const { showToast } = useToast();
   const navigate = useNavigate();
   const dataset = useDataset();
@@ -237,7 +237,9 @@ export function Workspace({ file, isDarkTheme }: WorkspaceProps): ReactNode {
         <div className="workspace__recovery" role="alertdialog">
           <p>
             {t("workspace.recoveryFound", {
-              at: new Date(workspace.recovered.savedAt).toLocaleString(),
+              at: new Date(workspace.recovered.savedAt).toLocaleString(
+                currLanguage,
+              ),
             })}
           </p>
           <button

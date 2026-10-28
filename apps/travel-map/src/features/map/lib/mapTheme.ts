@@ -1,4 +1,5 @@
-import type { StyleSpecification } from "maplibre-gl";
+import type { Country } from "@travelmap/core";
+import type { ExpressionSpecification, StyleSpecification } from "maplibre-gl";
 
 /**
  * Colors shared by every layer in one map theme.
@@ -115,6 +116,33 @@ export function toOpaqueFill(hsla: string, baseHex: string): string {
   );
 
   return `rgb(${red}, ${green}, ${blue})`;
+}
+
+/**
+ * Builds country coloring without an invalid, empty MapLibre match expression
+ * when the author has not added any trips yet.
+ * @param {readonly Pick<Country, "name" | "fillColor">[]} countries - Visited country colors
+ * @param {string} land - Default land color for unvisited countries
+ * @returns {ExpressionSpecification | string} A match expression or the plain land color
+ */
+export function createCountryFillColor(
+  countries: readonly Pick<Country, "name" | "fillColor">[],
+  land: string,
+): ExpressionSpecification | string {
+  const [firstCountry, ...others] = countries;
+  if (!firstCountry) return land;
+
+  return [
+    "match",
+    ["get", "name"],
+    firstCountry.name,
+    toOpaqueFill(firstCountry.fillColor, land),
+    ...others.flatMap((country) => [
+      country.name,
+      toOpaqueFill(country.fillColor, land),
+    ]),
+    land,
+  ];
 }
 
 /**

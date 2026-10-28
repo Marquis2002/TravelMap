@@ -4,12 +4,11 @@ import { City } from "@travelmap/core";
 import { ReactNode } from "react";
 import { Marker as MapLibreMarker } from "react-map-gl/maplibre";
 
+import { useLanguage } from "@/shared/hooks/useLanguage";
 import { classNames } from "@/shared/lib/classNames";
 import { isActivationKey } from "@/shared/lib/keyboard";
 
-/**
- * The visual state used to render a map marker.
- */
+/** The visual state used to render a map marker. */
 export type MarkerVariant = "visited" | "future" | "lived" | "layover";
 
 /**
@@ -47,7 +46,8 @@ export function Marker({
   onSelectCity,
   variant = "visited",
 }: MarkerProps): ReactNode {
-  const isHovered = hoveredCity?.name === city.name;
+  const { currLanguage } = useLanguage(["home"]);
+  const isHovered = hoveredCity?.id === city.id;
 
   return (
     <MapLibreMarker
@@ -60,13 +60,13 @@ export function Marker({
       }}
     >
       <span
-        aria-label={city.name}
+        aria-label={city.getLocalizedName(currLanguage)}
         className={classNames(
           "map-city-marker",
           `map-city-marker--${variant}`,
           isHovered && "map-city-marker--hovered",
         )}
-        id={`${city.name}-marker`}
+        id={`${city.id}-marker`}
         onKeyDown={(event) => isActivationKey(event) && onSelectCity(city)}
         onMouseEnter={() => onHoverCity(city)}
         onMouseLeave={() => onHoverCity(null)}

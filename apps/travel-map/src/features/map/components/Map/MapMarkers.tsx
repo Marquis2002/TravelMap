@@ -71,7 +71,7 @@ export function MapMarkers({
             <Marker
               city={city}
               hoveredCity={hoveredCity}
-              key={`${variant}-${city.name}`}
+              key={`${variant}-${city.id}`}
               onHoverCity={onHoverCity}
               onSelectCity={onSelectCity}
               variant={variant}

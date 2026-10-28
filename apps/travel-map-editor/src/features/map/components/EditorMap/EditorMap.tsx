@@ -25,6 +25,7 @@ import Map, {
   Source,
 } from "react-map-gl/maplibre";
 
+import { placeName } from "../../../../shared/lib/placeName";
 import { Selection } from "../../../workspace/Workspace.state";
 import { WorldLayers } from "../WorldLayers/WorldLayers";
 
@@ -179,7 +180,7 @@ export function EditorMap({
           >
             <button
               aria-label={t("map.selectStop", {
-                city: city.name,
+                city: placeName(city),
                 position: index + 1,
               })}
               className={classNames(

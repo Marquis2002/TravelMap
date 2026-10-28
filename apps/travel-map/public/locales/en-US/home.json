@@ -73,7 +73,15 @@
     "transportModes": "Transport Modes",
     "flightCompanies": "Airlines",
     "ferryCompanies": "Ferry Lines",
-    "citiesPerCountry": "Cities per Country"
+    "citiesPerCountry": "Cities per Country",
+    "provinces": {
+      "title": "China provincial coverage",
+      "hint": "Uses the same visited places as continent coverage. Each region counts once, including Hong Kong, Macao and Taiwan.",
+      "visited": "Visited",
+      "unvisited": "Not visited",
+      "loading": "Loading provinces…",
+      "failed": "Could not load provinces. Please refresh to retry."
+    }
   },
   "deselectAll": "Deselect all",
   "filterTooltip": "Filter city cards on the map by country selection.",
@@ -87,7 +95,12 @@
   "theme": "Toggle between light and dark mode",
   "map": {
     "zoomIn": "Zoom in",
-    "zoomOut": "Zoom out"
+    "zoomOut": "Zoom out",
+    "regions": "Regions and layers",
+    "china": "China",
+    "world": "World",
+    "provinces": "Provinces",
+    "provinceSource": "Boundaries: DataV"
   },
   "lightbox": {
     "fullscreen": "Toggle fullscreen",

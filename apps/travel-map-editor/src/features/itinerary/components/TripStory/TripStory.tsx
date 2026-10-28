@@ -21,6 +21,7 @@ import {
   TextField,
 } from "../../../../shared/components/Fields/Fields";
 import { LocalizedNames } from "../../../../shared/components/LocalizedNames/LocalizedNames";
+import { placeName } from "../../../../shared/lib/placeName";
 import { cityOptions } from "../../../places/lib/placeOptions";
 import { Selection } from "../../../workspace/Workspace.state";
 import {
@@ -181,7 +182,7 @@ function MoveCard({
    * @returns {string} The display name
    */
   const cityName = (id: string): string =>
-    dataset.cities.find(({ value }) => value.id === id)?.value.name ?? id;
+    placeName(dataset.cities.find(({ value }) => value.id === id)?.value, id);
 
   return (
     <StoryChapter
@@ -282,9 +283,10 @@ function NextStep({
   const [nights, setNights] = useState<number | undefined>(1);
   const last = trip.steps.at(-1);
   const hereId = currentCityId(trip);
-  const here =
-    dataset.cities.find(({ value }) => value.id === hereId)?.value.name ??
-    hereId;
+  const here = placeName(
+    dataset.cities.find(({ value }) => value.id === hereId)?.value,
+    hereId,
+  );
   const isHome = hereId === trip.originCityId && trip.steps.length > 0;
 
   return (

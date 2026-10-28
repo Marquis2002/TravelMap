@@ -83,7 +83,7 @@ export function BarChartTransportModes({
                 {km > 0 ? (
                   <span className="transport-bar-chart__km">
                     {formatMileage(km, currLanguage, 0)} km ·{" "}
-                    {formatDuration(minutes)}
+                    {formatDuration(minutes, currLanguage)}
                   </span>
                 ) : null}
               </>

@@ -20,6 +20,7 @@ import {
  * @property {ReactNode} [icon] - Small circular icon shown before the label, takes priority over iconUrl
  * @property {string} [iconUrl] - Small circular image shown before the label
  * @property {string} label - Display text
+ * @property {string[]} [searchNames] - Base names and translations searchable in any language
  * @property {string} value - Underlying identifier
  */
 export interface ComboboxOption {
@@ -28,6 +29,7 @@ export interface ComboboxOption {
   iconUrl?: string;
   label: string;
   value: string;
+  searchNames?: string[];
 }
 
 /** Fuzzy matching configuration for place and transport options. */
@@ -37,6 +39,7 @@ const FUSE_OPTIONS: IFuseOptions<ComboboxOption> = {
     { name: "label", weight: 3 },
     { name: "hint", weight: 1 },
     { name: "value", weight: 1 },
+    { name: "searchNames", weight: 2 },
   ],
   threshold: 0.4,
 };

@@ -86,8 +86,8 @@ export function NewTripDialog({
       onClose();
       await navigate(`/trip/${id}`);
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : t("createScreen.createError");
+      console.error(error);
+      const errorMessage = t("createScreen.createError");
       setMessage(errorMessage);
       showToast(errorMessage, "error");
     }

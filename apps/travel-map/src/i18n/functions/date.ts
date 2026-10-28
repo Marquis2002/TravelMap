@@ -69,6 +69,17 @@ export function formatDateRangeShort({
   const e = eDateInput ? new Date(eDateInput) : null;
 
   const normalizedLocale = normalizeLocale(locale);
+  if (normalizedLocale === "zh-CN") {
+    const formatter = new Intl.DateTimeFormat(normalizedLocale, {
+      year: showYear ? "numeric" : undefined,
+      month: "long",
+      day: "numeric",
+      weekday: includeWeekday ? "short" : undefined,
+    });
+    return e && s.toDateString() !== e.toDateString()
+      ? `${formatter.format(s)} – ${formatter.format(e)}`
+      : formatter.format(s);
+  }
 
   /**
    * Gets the day of the month from a date.

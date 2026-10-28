@@ -1,6 +1,7 @@
 node_modules/
 dist/
 pnpm-lock.yaml
+apps/travel-map-editor/vite/data/chinaPlaces.json
 
 # Authored content and generated media keep whatever shape their tools produce.
 .data-snapshots/

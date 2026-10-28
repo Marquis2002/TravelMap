@@ -27,6 +27,7 @@ const NAV_TABS = [
   { icon: Settings, id: "settings", to: "/settings" },
 ] as const;
 const LANGUAGE_LABEL_KEYS = {
+  "zh-CN": "chinese",
   "en-US": "english",
   "it-IT": "italian",
 } as const;

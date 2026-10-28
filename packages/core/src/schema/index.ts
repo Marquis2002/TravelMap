@@ -76,6 +76,7 @@ export const CountryJsonSchema = z.strictObject({
 
 /** Serializable city data authored in the forkable dataset. */
 export const CityJsonSchema = z.strictObject({
+  gazetteerKey: z.string().min(1).optional(),
   backgroundImages: z.array(z.string().trim().min(1)).optional(),
   coordinates: CoordinatesSchema,
   countryId: idSchema,

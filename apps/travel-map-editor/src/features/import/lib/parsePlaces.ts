@@ -176,7 +176,7 @@ function cleanName(line: string): string {
     .filter(Boolean);
 
   while (words.length > 0) {
-    const first = words[0]!.toLowerCase().replace(/[^a-z]/g, "");
+    const first = words[0]!.toLowerCase().replace(/[^\p{L}]/gu, "");
     if (!first || Object.hasOwn(MODE_WORDS, first) || FILLER_WORDS.has(first))
       words.shift();
     else break;
@@ -185,7 +185,7 @@ function cleanName(line: string): string {
     const last = words
       .at(-1)!
       .toLowerCase()
-      .replace(/[^a-z]/g, "");
+      .replace(/[^\p{L}]/gu, "");
     if (!last || Object.hasOwn(MODE_WORDS, last) || FILLER_WORDS.has(last))
       words.pop();
     else break;

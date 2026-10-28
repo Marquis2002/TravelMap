@@ -37,8 +37,15 @@ export function galleryLoader({
   params,
 }: LoaderFunctionArgs): GalleryRouteData {
   const parsed = GalleryParamsSchema.safeParse(params);
+  const legacyMatches = parsed.success
+    ? visitedCities.filter(
+        (candidate) => candidate.name === parsed.data.cityName,
+      )
+    : [];
   const city = parsed.success
-    ? visitedCities.find((candidate) => candidate.name === parsed.data.cityName)
+    ? (visitedCities.find(
+        (candidate) => candidate.id === parsed.data.cityName,
+      ) ?? (legacyMatches.length === 1 ? legacyMatches[0] : undefined))
     : undefined;
   const travel =
     city && parsed.success

@@ -26,6 +26,7 @@ import { Link, useLocation } from "react-router";
 import { resolveLogoUrl, resolveMediaUrl } from "../../../../data/dataset";
 import { DataFile, DatasetSnapshot } from "../../../../data/store";
 import { datasetIssues, useDataset } from "../../../../shared/hooks/useDataset";
+import { placeName } from "../../../../shared/lib/placeName";
 import { findWorldCountry } from "../../../../shared/lib/worldCountries";
 import { searchItems } from "../../lib/search";
 import {
@@ -305,7 +306,7 @@ function PlacesPanel({ dataset }: PlacesPanelProps): ReactNode {
   const [countryQuery, setCountryQuery] = useState("");
   const [cityQuery, setCityQuery] = useState("");
   const countryNames = new Map(
-    dataset.countries.map(({ value }) => [value.id, value.name]),
+    dataset.countries.map(({ value }) => [value.id, placeName(value)]),
   );
   const countries = searchItems(
     dataset.countries.toSorted((first, second) =>
@@ -396,7 +397,9 @@ function PlacesPanel({ dataset }: PlacesPanelProps): ReactNode {
                         src={findWorldCountry(value.id)?.flagUrl}
                       />
                     </span>
-                    <span className="library__place-name">{value.name}</span>
+                    <span className="library__place-name">
+                      {placeName(value)}
+                    </span>
                     <ArrowUpRight aria-hidden="true" />
                   </Link>
                 </li>
@@ -445,7 +448,9 @@ function PlacesPanel({ dataset }: PlacesPanelProps): ReactNode {
                       />
                     </span>
                     <span className="library__place-copy">
-                      <span className="library__place-name">{value.name}</span>
+                      <span className="library__place-name">
+                        {placeName(value)}
+                      </span>
                       <span className="library__place-country">
                         {countryNames.get(value.countryId) ?? value.countryId}
                       </span>

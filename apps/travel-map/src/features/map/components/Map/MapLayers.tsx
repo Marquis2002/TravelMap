@@ -2,6 +2,8 @@ import { ReactNode, useMemo } from "react";
 import { Layer, Source } from "react-map-gl/maplibre";
 
 import { visitedCountries } from "@/data/world";
+import { ChinaBoundary } from "@/shared/components/ChinaBoundary/ChinaBoundary";
+import { useLanguage } from "@/shared/hooks/useLanguage";
 
 import { countriesGeoJson } from "../../lib/countries";
 import {
@@ -9,7 +11,8 @@ import {
   cityLabelsGeoJson,
   countryLabelsGeoJson,
 } from "../../lib/mapData";
-import { MapTheme, toOpaqueFill } from "../../lib/mapTheme";
+import { createCountryFillColor, MapTheme } from "../../lib/mapTheme";
+import { ChinaProvinceLayers } from "../ChinaProvinceLayers/ChinaProvinceLayers";
 
 const LABEL_FONT = ["Urbanist SemiBold"];
 
@@ -23,9 +26,11 @@ interface MapLabelsProps {
 
 /**
  * Properties accepted by the map's geographic layers.
+ * @property {boolean} showProvinces - Whether China's provincial overlay is shown
  * @property {MapTheme} theme - The active map theme
  */
 interface MapLayersProps {
+  showProvinces: boolean;
   theme: MapTheme;
 }
 
@@ -38,6 +43,7 @@ interface MapLayersProps {
  * @returns {ReactNode} The themed map label layers
  */
 function MapLabels({ theme }: MapLabelsProps): ReactNode {
+  const { currLanguage } = useLanguage(["home"]);
   return (
     <>
       <Source
@@ -46,9 +52,20 @@ function MapLabels({ theme }: MapLabelsProps): ReactNode {
         type="geojson"
       >
         <Layer
+          filter={[
+            "!",
+            [
+              "in",
+              ["get", "name"],
+              ["literal", ["Taiwan", "Macao", "Hong Kong"]],
+            ],
+          ]}
           id="country-labels"
           layout={{
-            "text-field": ["upcase", ["get", "name"]],
+            "text-field": [
+              "upcase",
+              ["coalesce", ["get", currLanguage], ["get", "name"]],
+            ],
             "text-font": LABEL_FONT,
             "text-size": [
               "interpolate",
@@ -82,7 +99,11 @@ function MapLabels({ theme }: MapLabelsProps): ReactNode {
         />
       </Source>
 
-      <Source data={cityLabelsGeoJson} id="city-label-points" type="geojson">
+      <Source
+        data={cityLabelsGeoJson(currLanguage)}
+        id="city-label-points"
+        type="geojson"
+      >
         {CITY_LABEL_TIERS.map((tier) => (
           <Layer
             filter={
@@ -133,21 +154,13 @@ function MapLabels({ theme }: MapLabelsProps): ReactNode {
  * Renders the country polygons, borders, and labels for the active map theme.
  * @component
  * @param {MapLayersProps} props
+ * @param {boolean} props.showProvinces - Whether China's provincial overlay is shown
  * @param {MapTheme} props.theme - The active map theme
  * @returns {ReactNode} The themed geographic map layers
  */
-export function MapLayers({ theme }: MapLayersProps): ReactNode {
+export function MapLayers({ showProvinces, theme }: MapLayersProps): ReactNode {
   const countryFillColor = useMemo(
-    () =>
-      [
-        "match",
-        ["get", "name"],
-        ...visitedCountries.flatMap((country) => [
-          country.name,
-          toOpaqueFill(country.fillColor, theme.land),
-        ]),
-        theme.land,
-      ] as never,
+    () => createCountryFillColor(visitedCountries, theme.land),
     [theme.land],
   );
 
@@ -160,6 +173,14 @@ export function MapLayers({ theme }: MapLayersProps): ReactNode {
           type="fill"
         />
         <Layer
+          filter={[
+            "!",
+            [
+              "in",
+              ["get", "name"],
+              ["literal", ["China", "Taiwan", "Hong Kong", "Macao"]],
+            ],
+          ]}
           id="country-border"
           paint={{
             "line-color": theme.border,
@@ -178,6 +199,19 @@ export function MapLayers({ theme }: MapLayersProps): ReactNode {
         />
       </Source>
 
+      <ChinaBoundary
+        border={theme.border}
+        fill={createCountryFillColor(
+          visitedCountries
+            .filter((country) => country.name === "China")
+            .map((country) => ({
+              name: "中华人民共和国",
+              fillColor: country.fillColor,
+            })),
+          theme.land,
+        )}
+      />
+      <ChinaProvinceLayers theme={theme} visible={showProvinces} />
       <MapLabels theme={theme} />
     </>
   );

@@ -129,7 +129,7 @@ export function TripDetailHero({
               </span>
               <span className="trip-detail__mode-value">
                 {formatMileage(total.km, lang, 0)} km ·{" "}
-                {formatDuration(total.minutes)}
+                {formatDuration(total.minutes, lang)}
               </span>
             </li>
           ) : null;

@@ -70,8 +70,8 @@ export function BackupPanel(): ReactNode {
       setMessage(t("backup.snapshotTaken"));
       showToast(t("backup.snapshotTaken"));
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : t("backup.failed");
+      console.error(error);
+      const errorMessage = t("backup.failed");
       setMessage(errorMessage);
       showToast(errorMessage, "error");
     }
@@ -89,8 +89,8 @@ export function BackupPanel(): ReactNode {
       setMessage(t("backup.restored"));
       showToast(t("backup.restored"));
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : t("backup.failed");
+      console.error(error);
+      const errorMessage = t("backup.failed");
       setMessage(errorMessage);
       showToast(errorMessage, "error");
     }

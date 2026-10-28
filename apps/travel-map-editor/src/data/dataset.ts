@@ -20,7 +20,7 @@ export function photoKeys(dataset: DatasetSnapshot): string[] {
  * @returns {string[]} Configured locale tags
  */
 export function locales(): string[] {
-  return getDataset().config.value.locales ?? [];
+  return [...new Set(["zh-CN", ...(getDataset().config.value.locales ?? [])])];
 }
 
 /*

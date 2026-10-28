@@ -162,7 +162,7 @@ function TimelineCardItem({ trip, side }: TimelineCardItemProps): ReactNode {
             {t("timeline.city", {
               count: new Set(
                 trip.destinations.flatMap((d) =>
-                  d.kind === "stopover" ? [] : [d.city.name],
+                  d.kind === "stopover" ? [] : [d.city.id],
                 ),
               ).size,
             })}

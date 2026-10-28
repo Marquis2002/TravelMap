@@ -4,6 +4,7 @@ import { CountryFlag } from "@/shared/components/CountryFlag/CountryFlag";
 
 /** Maps each supported language prefix to its country flag identifier. */
 const FLAG_BY_LANGUAGE: Record<string, string> = {
+  zh: "China",
   de: "Germany",
   en: "UnitedKingdom",
   es: "Spain",

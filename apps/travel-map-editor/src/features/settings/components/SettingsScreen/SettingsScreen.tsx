@@ -20,6 +20,7 @@ import {
 } from "../../../../shared/components/Fields/Fields";
 import { useDataset } from "../../../../shared/hooks/useDataset";
 import { isSameJson } from "../../../../shared/lib/jsonEquality";
+import { placeName } from "../../../../shared/lib/placeName";
 import { findWorldCountry } from "../../../../shared/lib/worldCountries";
 import { BackupPanel } from "../../../backup/components/BackupPanel/BackupPanel";
 
@@ -63,7 +64,7 @@ export function SettingsScreen({ file }: SettingsScreenProps): ReactNode {
   const cityOptions = dataset.cities.map(({ value: city }) => ({
     hint: city.countryId,
     iconUrl: findWorldCountry(city.countryId)?.flagUrl,
-    label: city.name,
+    label: placeName(city),
     value: city.id,
   }));
 
@@ -288,7 +289,7 @@ export function SettingsScreen({ file }: SettingsScreenProps): ReactNode {
         {dataset.countries.map(({ value: country }) => (
           <StringListField
             key={country.id}
-            label={country.name}
+            label={placeName(country)}
             onChange={(sites) =>
               setValue((current) => {
                 const unescoSites = { ...(current.unescoSites ?? {}) };

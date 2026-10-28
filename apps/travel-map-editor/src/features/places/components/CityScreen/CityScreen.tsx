@@ -15,6 +15,7 @@ import {
 import { LocalizedNames } from "../../../../shared/components/LocalizedNames/LocalizedNames";
 import { useDataset } from "../../../../shared/hooks/useDataset";
 import { isSameJson } from "../../../../shared/lib/jsonEquality";
+import { placeName } from "../../../../shared/lib/placeName";
 import { findWorldCountry } from "../../../../shared/lib/worldCountries";
 import { snapshotBeforeChange } from "../../../backup/lib/snapshots";
 import { CoordinatePicker } from "../../../map/components/CoordinatePicker/CoordinatePicker";
@@ -84,7 +85,7 @@ export function CityScreen({ file, isDarkTheme }: CityScreenProps): ReactNode {
       path={file.path}
       problems={problems}
       savedMessage={t("toast.citySaved")}
-      title={file.value.name}
+      title={placeName(file.value)}
       titleIconUrl={findWorldCountry(value.countryId)?.flagUrl}
       value={value}
     >

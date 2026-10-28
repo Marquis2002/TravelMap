@@ -8,6 +8,8 @@ apps/travel-map/.claude/settings.local.json
 
 # Dependencies and build output.
 node_modules/
+.local-tools/
+.local-runtime/
 dist/
 test-results/
 

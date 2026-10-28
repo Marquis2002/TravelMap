@@ -1,0 +1,201 @@
+{
+  "continents": {
+    "AFRICA": "非洲",
+    "ANTARCTICA": "南极洲",
+    "ASIA": "亚洲",
+    "EUROPE": "欧洲",
+    "NORTH_AMERICA": "北美洲",
+    "OCEANIA": "大洋洲",
+    "SOUTH_AMERICA": "南美洲"
+  },
+  "visited": {
+    "title": "我的旅行",
+    "empty": "还没有旅行记录。"
+  },
+  "tripCard": {
+    "openTrip": "打开{{trip}}"
+  },
+  "places": {
+    "visited": "去过",
+    "lived": "住过",
+    "future": "想去",
+    "centerMap": "将地图定位到{{city}}",
+    "tooltips": {
+      "visited": "显示我去过的地点。",
+      "lived": "显示我住过的地点。",
+      "future": "显示未来想去的地点。"
+    },
+    "empty": {
+      "visited": "还没有去过的城市。",
+      "lived": "还没有曾居住地。",
+      "future": "还没有未来目的地。"
+    }
+  },
+  "stats": {
+    "empty": "暂无数据。",
+    "aroundEarth": "绕地球",
+    "biggestTimezoneJump": "最大时区跨越",
+    "cities": "城市",
+    "citiesPerContinent": "各洲已访问城市",
+    "countries": "国家和地区",
+    "countriesPerContinent": "各洲已访问国家和地区",
+    "coverage": "覆盖率",
+    "currency": "货币",
+    "ferries": "轮渡",
+    "flights": "航班",
+    "furthestCity": "去过的最远城市",
+    "intercontinental": "洲际航班",
+    "international": "国际航班",
+    "longestFerry": "最长轮渡航程",
+    "longestFlight": "最长飞行航程",
+    "media": "照片与视频",
+    "mileage": "里程",
+    "national": "国内航班",
+    "nearestCity": "去过的最近城市",
+    "population": "人口",
+    "populationTop10": "去过的人口最多的十座城市",
+    "shortestFerry": "最短轮渡航程",
+    "shortestFlight": "最短飞行航程",
+    "timezoneJumped": "跨越时区",
+    "title": "旅行统计",
+    "toMoon": "到月球",
+    "total": "总计",
+    "totalMileage": "旅行总里程",
+    "transport": "交通",
+    "trips": "旅行",
+    "daysAbroad": "在外天数",
+    "daysPerYear": "每年在外天数",
+    "avgTrip": "平均旅行",
+    "yearsTraveling": "旅行年数",
+    "daySuffix": "天",
+    "yearSuffix": "年",
+    "unesco": "世界遗产",
+    "transportModes": "交通方式",
+    "flightCompanies": "航空公司",
+    "ferryCompanies": "轮渡公司",
+    "citiesPerCountry": "各国家和地区的城市数",
+    "provinces": {
+      "title": "中国省级区划覆盖率",
+      "hint": "与七大洲统计口径一致；同一省级区划只计一次，含港澳台。",
+      "visited": "已覆盖",
+      "unvisited": "未覆盖",
+      "loading": "正在读取省级区划…",
+      "failed": "省级区划读取失败，请刷新重试。"
+    }
+  },
+  "deselectAll": "取消全选",
+  "filterTooltip": "按所选国家和地区筛选地图上的城市卡片。",
+  "gallery": "查看相册",
+  "galleryAlt": "打开相册",
+  "close": "关闭相册",
+  "goHome": "返回首页",
+  "playVideo": "播放视频",
+  "language": "选择语言",
+  "selectAll": "全选",
+  "theme": "切换浅色或深色模式",
+  "map": {
+    "zoomIn": "放大",
+    "zoomOut": "缩小",
+    "regions": "地图区域与图层",
+    "china": "中国",
+    "world": "世界",
+    "provinces": "省级区划",
+    "provinceSource": "省界来源：DataV"
+  },
+  "lightbox": {
+    "fullscreen": "切换全屏",
+    "nextSlide": "下一张",
+    "previousSlide": "上一张",
+    "youtubeVideo": "YouTube 视频"
+  },
+  "currency": {
+    "EUR": {
+      "name": "欧元",
+      "symbol": "€"
+    },
+    "JPY": {
+      "name": "日元",
+      "symbol": "¥"
+    },
+    "HUF": {
+      "name": "匈牙利福林",
+      "symbol": "Ft"
+    },
+    "GBP": {
+      "name": "英镑",
+      "symbol": "£"
+    },
+    "AUD": {
+      "name": "澳大利亚元",
+      "symbol": "$"
+    },
+    "CNY": {
+      "name": "人民币",
+      "symbol": "¥"
+    },
+    "BGN": {
+      "name": "保加利亚列弗",
+      "symbol": "лв"
+    },
+    "RON": {
+      "name": "罗马尼亚列伊",
+      "symbol": "lei"
+    },
+    "SEK": {
+      "name": "瑞典克朗",
+      "symbol": "kr"
+    }
+  },
+  "nav": {
+    "trips": "旅行",
+    "places": "地点",
+    "timeline": "时间线",
+    "stats": "统计"
+  },
+  "timeline": {
+    "title": "时间线",
+    "empty": "暂无时间线数据。",
+    "city_one": "{{count}} 座城市",
+    "city_other": "{{count}} 座城市"
+  },
+  "tripDetail": {
+    "route": "路线",
+    "mode_plane_one": "{{count}} 次航班",
+    "mode_plane_other": "{{count}} 次航班",
+    "mode_ferry_one": "{{count}} 次轮渡",
+    "mode_ferry_other": "{{count}} 次轮渡",
+    "mode_train_one": "{{count}} 次火车",
+    "mode_train_other": "{{count}} 次火车",
+    "mode_bus_one": "{{count}} 次公交",
+    "mode_bus_other": "{{count}} 次公交",
+    "mode_car_one": "{{count}} 次驾车",
+    "mode_car_other": "{{count}} 次驾车",
+    "mode_taxi_one": "{{count}} 次出租车",
+    "mode_taxi_other": "{{count}} 次出租车",
+    "mode_walk_one": "{{count}} 次步行",
+    "mode_walk_other": "{{count}} 次步行",
+    "nightsCount_one": "{{count}} 晚",
+    "nightsCount_other": "{{count}} 晚",
+    "dayTrip": "一日游",
+    "openPhotos": "{{city}}的照片",
+    "viewMap": "查看地图",
+    "backToTrip": "返回旅行",
+    "chapter": {
+      "there": "出发",
+      "onward": "继续旅程",
+      "home": "返程"
+    },
+    "nightInTransitAt": "在{{city}}中转过夜",
+    "visitedOnTheWay": "途中游览",
+    "photosOfStay": "停留期间的照片",
+    "inCity": "在{{city}}",
+    "unit": {
+      "day_one": "天",
+      "day_other": "天",
+      "night_one": "晚",
+      "night_other": "晚",
+      "timeZone_one": "个时区",
+      "timeZone_other": "个时区"
+    }
+  }
+}

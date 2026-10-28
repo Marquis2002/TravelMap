@@ -131,8 +131,9 @@ export function UploadPanel({
           patch(id, { image, progress: 1, status: "done" });
           finished.push({ ...item, image });
         } catch (error) {
+          console.error(error);
           patch(id, {
-            error: error instanceof Error ? error.message : String(error),
+            error: t("upload.status.failed"),
             status: "failed",
           });
         }
@@ -163,9 +164,8 @@ export function UploadPanel({
       onLink(manifestKeyFor(path));
       setMessage(t("upload.saved", { count: finished.length }));
     } catch (error) {
-      setMessage(
-        error instanceof Error ? error.message : t("upload.saveFailed"),
-      );
+      console.error(error);
+      setMessage(t("upload.saveFailed"));
     }
   }
 

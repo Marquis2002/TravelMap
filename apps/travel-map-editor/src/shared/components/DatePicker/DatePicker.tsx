@@ -42,10 +42,11 @@ function toLocalDate(date: Date): string {
  * Lists the weekday initials in the viewer's locale, starting on their first
  * day of the week.
  * @param {number} firstDay - The locale's first weekday, 0 for Sunday
+ * @param {string} language - Selected interface language
  * @returns {string[]} Short weekday labels
  */
-function weekdayLabels(firstDay: number): string[] {
-  const formatter = new Intl.DateTimeFormat(undefined, { weekday: "short" });
+function weekdayLabels(firstDay: number, language: string): string[] {
+  const formatter = new Intl.DateTimeFormat(language, { weekday: "short" });
   /* A known Sunday provides a stable base for weekday ordering. */
   return Array.from({ length: WEEKDAY_COUNT }, (_unused, index) =>
     formatter.format(new Date(2024, 0, 7 + ((firstDay + index) % 7))),
@@ -55,10 +56,11 @@ function weekdayLabels(firstDay: number): string[] {
 /**
  * Resolves the locale's first day of the week, defaulting to Monday where the
  * platform cannot say.
+ * @param {string} language - Selected interface language
  * @returns {number} The first weekday, 0 for Sunday
  */
-function firstDayOfWeek(): number {
-  const locale = new Intl.Locale(navigator.language);
+function firstDayOfWeek(language: string): number {
+  const locale = new Intl.Locale(language);
   const info = (
     locale as Intl.Locale & { getWeekInfo?: () => { firstDay: number } }
   ).getWeekInfo?.();
@@ -107,7 +109,7 @@ export function DatePicker({
   value,
   withTime = true,
 }: DatePickerProps): ReactNode {
-  const { t } = useLanguage(["editor"]);
+  const { t, currLanguage } = useLanguage(["editor"]);
   const controlRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -119,7 +121,7 @@ export function DatePicker({
     isOpen,
     PANEL_WIDTH_PX,
   );
-  const firstDay = firstDayOfWeek();
+  const firstDay = firstDayOfWeek(currLanguage);
   const today = toLocalDate(new Date());
 
   useEffect(() => {
@@ -182,7 +184,7 @@ export function DatePicker({
     setMonth(new Date(month.getFullYear(), month.getMonth() + delta, 1));
   }
   const formattedValue = selected
-    ? new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(
+    ? new Intl.DateTimeFormat(currLanguage, { dateStyle: "medium" }).format(
         selected,
       )
     : "";
@@ -262,7 +264,7 @@ export function DatePicker({
                     ‹
                   </button>
                   <span className="date-picker__month">
-                    {new Intl.DateTimeFormat(undefined, {
+                    {new Intl.DateTimeFormat(currLanguage, {
                       month: "long",
                       year: "numeric",
                     }).format(month)}
@@ -277,7 +279,7 @@ export function DatePicker({
                   </button>
                 </div>
                 <div className="date-picker__weekdays">
-                  {weekdayLabels(firstDay).map((weekday) => (
+                  {weekdayLabels(firstDay, currLanguage).map((weekday) => (
                     <span className="date-picker__weekday" key={weekday}>
                       {weekday}
                     </span>

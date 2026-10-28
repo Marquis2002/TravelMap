@@ -27,6 +27,7 @@ import {
 } from "../../lib/mapCamera";
 import { createMapStyle, MAP_THEMES } from "../../lib/mapTheme";
 import { getTripLayoverCities } from "../../lib/mapTripCities";
+import { MapRegionControls } from "../MapRegionControls/MapRegionControls";
 import { MapTooltip } from "../MapTooltip/MapTooltip";
 import { RouteOverlay } from "../RouteOverlay/RouteOverlay";
 import { MapLayers } from "./MapLayers";
@@ -69,6 +70,7 @@ export function Map({ isDarkTheme, responsive }: MapProps): ReactNode {
   const isFramingWorld = useRef(false);
   const pinnedCityRef = useRef<City | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showProvinces, setShowProvinces] = useState(true);
 
   const theme = MAP_THEMES[isDarkTheme ? "dark" : "light"];
   const mapStyle = useMemo(() => createMapStyle(theme), [theme]);
@@ -156,7 +158,7 @@ export function Map({ isDarkTheme, responsive }: MapProps): ReactNode {
     if (hoverLeaveTimer.current) clearTimeout(hoverLeaveTimer.current);
 
     if (city) {
-      if (pinnedCityRef.current?.name !== city.name) {
+      if (pinnedCityRef.current?.id !== city.id) {
         pinnedCityRef.current = null;
       }
       setHoveredCity(city);
@@ -176,7 +178,7 @@ export function Map({ isDarkTheme, responsive }: MapProps): ReactNode {
   const handleSelectCity = (city: City): void => {
     if (hoverLeaveTimer.current) clearTimeout(hoverLeaveTimer.current);
 
-    const shouldClose = pinnedCityRef.current?.name === city.name;
+    const shouldClose = pinnedCityRef.current?.id === city.id;
     pinnedCityRef.current = shouldClose ? null : city;
     setHoveredCity(shouldClose ? null : city);
   };
@@ -268,6 +270,7 @@ export function Map({ isDarkTheme, responsive }: MapProps): ReactNode {
           latitude: mapPosition.center[1],
           zoom: toMapLibreZoom(mapPosition.zoom),
         }}
+        localIdeographFontFamily="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif"
         mapStyle={mapStyle}
         maxPitch={0}
         maxZoom={MAPLIBRE_MAX_ZOOM}
@@ -280,7 +283,11 @@ export function Map({ isDarkTheme, responsive }: MapProps): ReactNode {
         renderWorldCopies={false}
         touchPitch={false}
       >
-        <MapLayers theme={theme} />
+        <MapLayers showProvinces={showProvinces} theme={theme} />
+        <MapRegionControls
+          onShowProvinces={setShowProvinces}
+          showProvinces={showProvinces}
+        />
         <RouteOverlay isDarkTheme={isDarkTheme} />
 
         {isLoaded ? (

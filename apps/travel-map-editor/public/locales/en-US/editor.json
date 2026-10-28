@@ -27,7 +27,8 @@
     "english": "English",
     "italian": "Italian",
     "switchToLight": "Switch to light mode",
-    "switchToDark": "Switch to dark mode"
+    "switchToDark": "Switch to dark mode",
+    "chinese": "Simplified Chinese"
   },
   "editorForm": {
     "deleteError": "Could not delete the file.",
@@ -106,7 +107,8 @@
     "placeholder": "Search 135,000 cities worldwide",
     "typeAtLeastTwo": "Type at least two letters",
     "searching": "Searching…",
-    "noMatchingCity": "No matching city"
+    "noMatchingCity": "No matching city",
+    "failed": "Search failed. Please retry."
   },
   "colorField": {
     "hexValue": "{{label}} hex value",
@@ -361,7 +363,7 @@
   "addPlace": {
     "title": "Add a place",
     "search": "Search the world",
-    "searchHint": "Cities above 5,000 people, from the local gazetteer.",
+    "searchHint": "Chinese administrative places and world cities, from the local gazetteer.",
     "existing": "Already in this dataset",
     "existingHint": "Reuse a city rather than creating a second copy.",
     "countryNotOnMap": "That country is not in the world catalogue, so a city there cannot be created yet.",

@@ -18,6 +18,7 @@ import {
   getCommands,
   subscribeToCommands,
 } from "../../../../shared/lib/commands";
+import { placeName } from "../../../../shared/lib/placeName";
 
 const FUSE_OPTIONS = {
   ignoreLocation: true,
@@ -92,13 +93,13 @@ export function CommandPalette(): ReactNode {
     ...dataset.cities.map((file) => ({
       hint: t("palette.city"),
       id: `go:city:${file.value.id}`,
-      label: file.value.name,
+      label: placeName(file.value),
       run: () => void navigate(`/places/cities/${file.value.id}`),
     })),
     ...dataset.countries.map((file) => ({
       hint: t("palette.country"),
       id: `go:country:${file.value.id}`,
-      label: file.value.name,
+      label: placeName(file.value),
       run: () => void navigate(`/places/countries/${file.value.id}`),
     })),
   ];

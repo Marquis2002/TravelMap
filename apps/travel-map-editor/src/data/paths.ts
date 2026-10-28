@@ -65,7 +65,7 @@ export function idError(id: string, taken: string[]): IdProblem | null {
  * @returns {string} The derived id
  */
 export function toId(name: string): string {
-  return name
+  const ascii = name
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
     .replace(/[^a-zA-Z0-9]+/g, " ")
@@ -73,6 +73,8 @@ export function toId(name: string): string {
     .filter(Boolean)
     .map((word) => word[0]!.toUpperCase() + word.slice(1))
     .join("");
+  if (ascii || !name.trim()) return ascii;
+  return `Place-${Array.from(name.trim(), (character) => character.codePointAt(0)!.toString(16)).join("-")}`;
 }
 
 /**

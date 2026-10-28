@@ -1,5 +1,6 @@
 import { countriesGeoJson } from "@app/features/map/lib/countries";
 import { MapTheme } from "@app/features/map/lib/mapTheme";
+import { ChinaBoundary } from "@app/shared/components/ChinaBoundary/ChinaBoundary";
 import { ReactNode } from "react";
 import { Layer, Source } from "react-map-gl/maplibre";
 
@@ -16,21 +17,32 @@ import { Layer, Source } from "react-map-gl/maplibre";
  */
 export function WorldLayers({ theme }: WorldLayersProps): ReactNode {
   return (
-    <Source data={countriesGeoJson} id="countries" type="geojson">
-      <Layer
-        id="country-fill"
-        paint={{ "fill-color": theme.land }}
-        type="fill"
-      />
-      <Layer
-        id="country-border"
-        paint={{
-          "line-color": theme.border,
-          "line-width": ["interpolate", ["linear"], ["zoom"], 1, 0.4, 6, 1],
-        }}
-        type="line"
-      />
-    </Source>
+    <>
+      <Source data={countriesGeoJson} id="countries" type="geojson">
+        <Layer
+          id="country-fill"
+          paint={{ "fill-color": theme.land }}
+          type="fill"
+        />
+        <Layer
+          filter={[
+            "!",
+            [
+              "in",
+              ["get", "name"],
+              ["literal", ["China", "Taiwan", "Hong Kong", "Macao"]],
+            ],
+          ]}
+          id="country-border"
+          paint={{
+            "line-color": theme.border,
+            "line-width": ["interpolate", ["linear"], ["zoom"], 1, 0.4, 6, 1],
+          }}
+          type="line"
+        />
+      </Source>
+      <ChinaBoundary border={theme.border} fill={theme.land} />
+    </>
   );
 }
 

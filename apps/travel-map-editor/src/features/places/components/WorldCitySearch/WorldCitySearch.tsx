@@ -8,6 +8,8 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { useAnchoredMenu } from "../../../../shared/hooks/anchoredMenu";
+import { cityRegion } from "../../../../shared/lib/cityMatch";
+import { placeName } from "../../../../shared/lib/placeName";
 import { searchWorldCities, WorldCity } from "../../lib/gazetteer";
 
 const RESULT_LIMIT = 30;
@@ -27,10 +29,11 @@ const menuVariants = {
 /**
  * Formats a population for the result list.
  * @param {number} population - Inhabitants
+ * @param {string} locale - Active UI language
  * @returns {string} A compact, human-readable count
  */
-function formatPopulation(population: number): string {
-  return new Intl.NumberFormat(undefined, {
+function formatPopulation(population: number, locale: string): string {
+  return new Intl.NumberFormat(locale, {
     maximumFractionDigits: 1,
     notation: "compact",
   }).format(population);
@@ -53,24 +56,31 @@ export function WorldCitySearch({
   label,
   onSelect,
 }: WorldCitySearchProps): ReactNode {
-  const { t } = useLanguage(["editor"]);
+  const { t, currLanguage } = useLanguage(["editor"]);
   const controlRef = useRef<HTMLDivElement>(null);
   const [term, setTerm] = useState("");
   const [results, setResults] = useState<WorldCity[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     if (term.trim().length < 2) return;
     const controller = new AbortController();
     const timer = setTimeout(() => {
       setIsLoading(true);
+      setFailed(false);
+      setResults([]);
       searchWorldCities(term, RESULT_LIMIT, controller.signal)
         .then((matches) => {
           setResults(matches);
           setIsLoading(false);
         })
         .catch(() => {
-          if (!controller.signal.aborted) setIsLoading(false);
+          if (!controller.signal.aborted) {
+            setIsLoading(false);
+            setResults([]);
+            setFailed(true);
+          }
         });
     }, DEBOUNCE_MS);
 
@@ -92,7 +102,7 @@ export function WorldCitySearch({
   } = useCombobox({
     inputValue: term,
     items: visible,
-    itemToString: (city) => city?.name ?? "",
+    itemToString: (city) => placeName(city),
     onInputValueChange: ({ inputValue }) => setTerm(inputValue ?? ""),
     onSelectedItemChange: ({ selectedItem }) => {
       if (!selectedItem) return;
@@ -167,12 +177,20 @@ export function WorldCitySearch({
                     ) : (
                       <span className="combobox__icon combobox__icon--none" />
                     )}
-                    <span className="combobox__option-label">{city.name}</span>
+                    <span className="combobox__option-label">
+                      {placeName(city)}
+                    </span>
                     <span className="world-city-search__country">
-                      {city.country?.name ?? city.countryCode}
+                      {cityRegion(city) ||
+                        new Intl.DisplayNames([currLanguage], {
+                          type: "region",
+                        }).of(city.countryCode) ||
+                        city.countryCode}
                     </span>
                     <span className="combobox__option-hint">
-                      {formatPopulation(city.population)}
+                      {city.population
+                        ? formatPopulation(city.population, currLanguage)
+                        : ""}
                     </span>
                   </li>
                 ))}
@@ -182,7 +200,9 @@ export function WorldCitySearch({
                       ? t("worldCitySearch.typeAtLeastTwo")
                       : isLoading
                         ? t("worldCitySearch.searching")
-                        : t("worldCitySearch.noMatchingCity")}
+                        : failed
+                          ? t("worldCitySearch.failed")
+                          : t("worldCitySearch.noMatchingCity")}
                   </li>
                 ) : null}
               </>

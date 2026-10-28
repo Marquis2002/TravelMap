@@ -13,6 +13,7 @@ import { DocumentScreen } from "../../../../shared/components/DocumentScreen/Doc
 import { NumberField } from "../../../../shared/components/Fields/Fields";
 import { useDataset } from "../../../../shared/hooks/useDataset";
 import { isSameJson } from "../../../../shared/lib/jsonEquality";
+import { placeName } from "../../../../shared/lib/placeName";
 import {
   findWorldCountry,
   translationsForLocales,
@@ -90,7 +91,7 @@ export function CountryScreen({ file }: CountryScreenProps): ReactNode {
       path={file.path}
       problems={problems}
       savedMessage={t("toast.countrySaved")}
-      title={file.value.name}
+      title={placeName(file.value)}
       titleIconUrl={world?.flagUrl}
       value={value}
     >
@@ -101,7 +102,7 @@ export function CountryScreen({ file }: CountryScreenProps): ReactNode {
             <dl className="country-screen__facts">
               <div className="country-screen__fact">
                 <dt>{t("countryScreen.name")}</dt>
-                <dd>{value.name}</dd>
+                <dd>{placeName(value)}</dd>
               </div>
               <div className="country-screen__fact">
                 <dt>{t("countryScreen.continent")}</dt>

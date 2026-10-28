@@ -17,6 +17,15 @@ function names(input: string): string[] {
 }
 
 describe("parseText", () => {
+  it("preserves Chinese place names and region qualifiers", () => {
+    expect(names("广州\n朝阳区\n北京 朝阳\ntrain to 阳朔县")).toEqual([
+      "广州",
+      "朝阳区",
+      "北京 朝阳",
+      "阳朔县",
+    ]);
+  });
+
   it("reads one place per line", () => {
     expect(names("Rome\nFlorence\n")).toEqual(["Rome", "Florence"]);
   });

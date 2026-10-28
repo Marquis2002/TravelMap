@@ -1,0 +1,633 @@
+{
+  "transportMode": {
+    "plane": "飞机",
+    "ferry": "轮渡",
+    "car": "汽车",
+    "train": "火车",
+    "bus": "公交",
+    "taxi": "出租车",
+    "walk": "步行"
+  },
+  "app": {
+    "notFound": "未找到",
+    "notFoundHint": "资料库中没有这份文档。",
+    "backToOverview": "返回概览"
+  },
+  "nav": {
+    "brandHint": "旅行地图",
+    "primary": "主导航",
+    "breadcrumb": "当前位置",
+    "home": "首页",
+    "places": "地点",
+    "companies": "交通公司",
+    "settings": "设置",
+    "configuration": "配置",
+    "trips": "旅行",
+    "language": "语言",
+    "english": "英语",
+    "italian": "意大利语",
+    "switchToLight": "切换浅色模式",
+    "switchToDark": "切换深色模式",
+    "chinese": "简体中文"
+  },
+  "editorForm": {
+    "deleteError": "无法删除文件。",
+    "cancel": "取消",
+    "delete": "删除"
+  },
+  "idProblem": {
+    "required": "请填写 ID。",
+    "invalid": "只能使用英文字母、数字、连字符和下划线。",
+    "taken": "ID“{{id}}”已被使用。"
+  },
+  "trip": {
+    "titles": "标题",
+    "canonicalHint": "显示在旅行卡片和旅行页面中。",
+    "start": "开始",
+    "end": "结束",
+    "origin": "出发地",
+    "returnTo": "返回到",
+    "coverImage": "封面图片",
+    "coverImageHint": "相对于媒体根地址的路径。",
+    "noSteps": "还没有行程。为每处停留添加地点，并为各段旅程添加交通。",
+    "stay": "停留",
+    "layover": "中转",
+    "dayTrip": "一日游",
+    "titleRequired": "请填写标题。",
+    "moveEarlier": "将第 {{index}} 步提前",
+    "moveLater": "将第 {{index}} 步延后",
+    "removeStep": "移除第 {{index}} 步"
+  },
+  "stepFields": {
+    "city": "城市",
+    "arrival": "到达",
+    "departure": "离开",
+    "photoManifest": "照片清单",
+    "noPhotos": "暂无照片",
+    "layover": "中转",
+    "roundTrip": "返回出发地（一日游）",
+    "mode": "交通方式",
+    "from": "从",
+    "to": "到",
+    "distanceKm": "距离（公里）",
+    "durationMinutes": "时长（分钟）",
+    "viaCities": "途经城市",
+    "airline": "航空公司",
+    "noAirline": "无航空公司",
+    "flightNumber": "航班号",
+    "cabinClass": "舱位",
+    "ferryCompany": "轮渡公司",
+    "noFerryCompany": "无轮渡公司"
+  },
+  "combobox": {
+    "typeToSearch": "输入以搜索",
+    "select": "选择",
+    "openOptions": "打开{{label}}选项",
+    "noMatches": "没有匹配结果",
+    "removeChip": "移除{{label}}"
+  },
+  "datePicker": {
+    "pickADate": "选择日期",
+    "clear": "清除{{label}}",
+    "previousMonth": "上个月",
+    "nextMonth": "下个月",
+    "today": "今天",
+    "time": "时间"
+  },
+  "placeImport": {
+    "title": "从 Google 地图导入",
+    "placeholder": "粘贴地图链接或 41.9028, 12.4964",
+    "use": "使用",
+    "resolving": "正在解析…",
+    "shortLinkError": "无法解析此 Google 地图分享链接。",
+    "noCoordinatesError": "链接中没有找到坐标。",
+    "preview": "经度 {{longitude}}，纬度 {{latitude}}"
+  },
+  "worldCitySearch": {
+    "placeholder": "搜索中国行政地点及世界城市",
+    "typeAtLeastTwo": "请至少输入两个字符",
+    "searching": "正在搜索…",
+    "noMatchingCity": "没有匹配的地点",
+    "failed": "搜索失败，请重试。"
+  },
+  "colorField": {
+    "hexValue": "{{label}}十六进制颜色",
+    "useSwatch": "使用 {{hex}}"
+  },
+  "localizedNames": {
+    "canonical": "基础名称",
+    "noLocalesBefore": "尚未配置翻译语言，请前往",
+    "noLocalesAfter": "添加语言后填写译名。"
+  },
+  "imageUploadField": {
+    "uploading": "正在上传…",
+    "uploadFailed": "上传失败。",
+    "choose": "选择标志",
+    "dropHint": "将 SVG 或 PNG 拖到此处，或浏览文件。",
+    "remove": "移除标志"
+  },
+  "cityScreen": {
+    "kind": "城市",
+    "position": "位置",
+    "longitude": "经度",
+    "latitude": "纬度",
+    "names": "名称",
+    "namesHint": "显示在卡片和地图上。相册网址使用 ID，修改显示名称不会改变网址。",
+    "details": "详情",
+    "country": "国家或地区",
+    "timezone": "时区",
+    "timezoneHint": "用于显示当地到达和离开时间。",
+    "population": "人口",
+    "populationHint": "决定地图在何时显示城市标签。",
+    "minMarkerScale": "最小标记比例",
+    "formerHome": "曾居住地",
+    "backgroundImages": "背景图片",
+    "placesBackground": "地点背景",
+    "placesBackgroundHint": "第一张用作地点卡片背景，后续图片按再次到访的顺序循环使用。",
+    "chooseFromPhotos": "从旅行照片中选择",
+    "chooseFromPhotosHint": "选择此城市某次停留的照片，将其完整图片排到首位。",
+    "noTripPhotos": "此城市还没有相册照片。也可在下方输入相对于媒体根地址的路径。",
+    "usePhoto": "将第 {{position}} 张用作地点背景",
+    "paths": "图片顺序（高级）",
+    "pathsHint": "每行一个相对媒体路径。第一张用作地点背景，后续图片按重复到访轮流使用。",
+    "nameRequired": "请填写基础名称。",
+    "timezoneRequired": "请填写时区。",
+    "cannotDelete_one": "{{count}} 个旅行引用此城市，暂时无法删除。",
+    "cannotDelete_other": "{{count}} 个旅行引用此城市，暂时无法删除。"
+  },
+  "countryScreen": {
+    "kind": "国家或地区",
+    "identity": "基本信息",
+    "name": "名称",
+    "continent": "大洲",
+    "currency": "货币",
+    "mapId": "地图 ID",
+    "fromWorldDataHint": "来自世界地图库，无需手动填写。",
+    "restoreFromWorldData": "从世界地图库恢复",
+    "notInWorldData": "不在世界地图库中，因此无法填色，也无法自动更新详情。",
+    "mapColour": "地图颜色",
+    "mapColourHint": "访问后在地图上填充的颜色。",
+    "fill": "填充色",
+    "markerScale": "标记比例",
+    "markerScaleHint": "可选：此国家或地区的城市标记大小范围。",
+    "minimum": "最小值",
+    "maximum": "最大值",
+    "nameRequired": "请填写基础名称。",
+    "cannotDelete_one": "{{count}} 座城市属于此国家或地区，暂时无法删除。",
+    "cannotDelete_other": "{{count}} 座城市属于此国家或地区，暂时无法删除。"
+  },
+  "createScreen": {
+    "addA": {
+      "trip": "添加旅行"
+    },
+    "id": "ID",
+    "createError": "无法创建文件。",
+    "title": "标题",
+    "tripIdHint": "文件名及旅行网址，根据标题生成。",
+    "tripTitlePlaceholder": "我的旅行",
+    "titleRequired": "请填写标题。",
+    "create": "创建",
+    "origin": "从哪里出发？",
+    "startDate": "出发日期",
+    "originMissing": "列表中没有？添加地点",
+    "originRequired": "请选择旅行出发地。"
+  },
+  "configScreen": {
+    "kind": "设置",
+    "title": "配置",
+    "siteMetadata": "网站信息",
+    "siteName": "名称",
+    "siteNamePlaceholder": "我的旅行",
+    "domain": "域名",
+    "domainPlaceholder": "map.example.com",
+    "description": "描述",
+    "descriptionPlaceholder": "记录个人旅行的地图。",
+    "author": "作者",
+    "authorPlaceholder": "你的名字",
+    "commaSeparated": "用英文逗号分隔。",
+    "keywords": "关键词",
+    "locales": "翻译语言",
+    "localesHint": "每个国家或地区、城市和旅行都可填写这些语言的译名。",
+    "removeLocale": "移除 {{locale}}",
+    "addLocale": "添加语言",
+    "add": "添加",
+    "cityRoles": "城市角色",
+    "none": "无",
+    "homeCity": "居住城市",
+    "formerHomes": "曾居住地",
+    "futureCities": "未来目的地",
+    "mapDefaults": "地图默认值",
+    "defaultZoom": "默认缩放",
+    "minimumZoom": "最小缩放",
+    "maximumZoom": "最大缩放",
+    "hoveredCityZoom": "悬停城市缩放",
+    "tripDisplay": "旅行显示",
+    "groupByCitiesCutoffYear": "按城市分组的截止年份",
+    "mediaPaths": "媒体路径",
+    "mediaRoot": "媒体根目录",
+    "mediaRootHint": "用于生成新的上传路径，不改变已有清单。",
+    "unescoSites": "世界遗产",
+    "unescoSitesHint": "仅用于统计访问数量，留空显示零。"
+  },
+  "library": {
+    "newTrip": "新建旅行",
+    "welcome": "还没有旅行",
+    "welcomeHint": "先创建旅行；添加地点时会自动创建所需城市和国家或地区。",
+    "stopCount_one": "{{count}} 处住宿",
+    "stopCount_other": "{{count}} 处住宿",
+    "readyBadge": "就绪",
+    "warningBadge_one": "{{count}} 条提醒",
+    "warningBadge_other": "{{count}} 条提醒",
+    "blockingBadge_one": "{{count}} 个问题",
+    "blockingBadge_other": "{{count}} 个问题",
+    "places": "国家、地区与城市",
+    "placesCount": "{{countries}} 个国家和地区，{{cities}} 座城市",
+    "countries": "国家和地区",
+    "cities": "城市",
+    "archive": "旅行档案",
+    "allTrips": "全部旅行",
+    "tripCount_one": "地图上有 {{count}} 个旅行",
+    "tripCount_other": "地图上有 {{count}} 个旅行",
+    "drafts": "草稿",
+    "noDates": "尚未设置日期",
+    "explore": "地点库",
+    "operators": "交通资料库",
+    "companyCount_one": "{{count}} 家交通公司",
+    "companyCount_other": "{{count}} 家交通公司",
+    "previousPage": "上一页",
+    "nextPage": "下一页",
+    "page": "第 {{current}} 页，共 {{total}} 页",
+    "searchTrips": "搜索旅行",
+    "searchCountries": "搜索国家和地区",
+    "searchCities": "搜索城市",
+    "noMatches": "没有匹配结果。"
+  },
+  "companyEditor": {
+    "title": "交通公司",
+    "hint": "管理各段交通中可选择的航空公司和轮渡公司。",
+    "addCompanyId": "新公司 ID",
+    "readyToAdd": "可以添加。",
+    "add": "添加公司",
+    "name": "名称",
+    "logo": "标志",
+    "removeCompany": "移除 {{id}}",
+    "remove": "移除",
+    "empty": "还没有交通公司。",
+    "manage": "管理公司"
+  },
+  "workspace": {
+    "backToLibrary": "旅行",
+    "undo": "撤销",
+    "redo": "重做",
+    "recoveryFound": "浏览器中发现 {{at}} 尚未保存的更改。",
+    "restore": "恢复",
+    "discard": "放弃",
+    "summary": "{{places}} 处地点，{{nights}} 晚"
+  },
+  "photoImport": {
+    "title": "导入照片清单",
+    "open": "导入…",
+    "hint": "粘贴上传器生成的 JSON 或选择文件，编辑器会根据本次停留识别城市、国家或地区及日期。",
+    "paste": "上传器 JSON",
+    "chooseFile": "选择 JSON",
+    "review": "预览",
+    "entries": "条目",
+    "target": "目标文件",
+    "existing": "已有文件",
+    "existingEntries_one": "已有 {{count}} 条",
+    "existingEntries_other": "已有 {{count}} 条",
+    "youtubeId": "第 {{position}} 条的 YouTube ID",
+    "replace": "替换",
+    "import": "导入",
+    "back": "返回",
+    "close": "关闭",
+    "done": "清单已导入并关联到本次停留。",
+    "failed": "无法导入照片清单。",
+    "problem": {
+      "invalidJson": "输入内容不是有效的 JSON。",
+      "notArray": "照片清单必须是 JSON 数组。",
+      "invalidEntry": "第 {{position}} 条需要缩略图、宽度和高度。",
+      "missingOriginal": "第 {{position}} 条没有原图路径，请在下方补充 YouTube ID。",
+      "unexpectedRoot": "第 {{position}} 条的路径 {{path}} 未以 {{root}} 开头。"
+    }
+  },
+  "map": {
+    "fitToTrip": "显示完整旅行",
+    "useThisView": "使用此视图",
+    "selectStop": "选择第 {{position}} 站，{{city}}"
+  },
+  "tray": {
+    "title": "校验与更改",
+    "validation": "校验",
+    "changes_one": "更改（{{count}}）",
+    "changes_other": "更改（{{count}}）",
+    "blockingSummary_one": "{{count}} 个阻断问题",
+    "blockingSummary_other": "{{count}} 个阻断问题",
+    "warningSummary_one": "{{count}} 条提醒",
+    "warningSummary_other": "{{count}} 条提醒",
+    "cleanSummary": "没有阻断问题",
+    "noIssues_one": "无需修复，共 {{steps}} 步。",
+    "noIssues_other": "无需修复，共 {{steps}} 步。",
+    "noChanges": "本次尚未写入更改。",
+    "commitHint": "编辑器保存文件；发布由 Git 完成。",
+    "change": {
+      "created": "已创建",
+      "updated": "已更新",
+      "deleted": "已删除"
+    }
+  },
+  "save": {
+    "saving": "正在保存",
+    "pending": "即将保存",
+    "savedAt": "已保存于 {{time}}",
+    "upToDate": "已是最新",
+    "failed": "保存失败",
+    "retry": "重试"
+  },
+  "toast": {
+    "notifications": "通知",
+    "dismiss": "关闭通知",
+    "documentSaved": "更改已保存。",
+    "documentDeleted": "文档已删除。",
+    "tripCreated": "旅行已创建。",
+    "tripSaved": "旅行已保存。",
+    "tripDeleted": "旅行已删除。",
+    "citySaved": "城市已保存。",
+    "cityDeleted": "城市已删除。",
+    "countrySaved": "国家或地区已保存。",
+    "countryDeleted": "国家或地区已删除。",
+    "settingsSaved": "设置已保存。",
+    "companiesSaved": "交通公司已保存。",
+    "logoUploaded": "标志已上传。"
+  },
+  "addPlace": {
+    "title": "添加地点",
+    "search": "搜索地点",
+    "searchHint": "本地地点库：中国城市与区县，以及世界其他城市。",
+    "existing": "资料库已有地点",
+    "existingHint": "复用已有城市，避免重复创建。",
+    "countryNotOnMap": "此国家或地区不在世界地图库中，暂时无法创建所属城市。",
+    "willCreateCity": "将创建城市{{city}}。",
+    "reusesExisting": "将复用已有城市{{city}}。",
+    "willCreateCountry": "这是{{country}}的首个地点，将同时创建其资料。",
+    "nearbyDuplicate": "{{city}}已在此位置。",
+    "manualTitle": "创建自定义地点",
+    "manualName": "名称",
+    "manualCountry": "国家或地区",
+    "createHere": "在此创建",
+    "add": "加入行程",
+    "writeFailed": "无法保存地点。"
+  },
+  "backup": {
+    "title": "备份",
+    "hint": "data/ 不纳入 Git。删除和导入前会自动创建资料快照；照片位于 media/，需另行备份。",
+    "takeSnapshot": "创建快照",
+    "download": "下载副本",
+    "snapshotTaken": "快照已创建。",
+    "restored": "快照已恢复。",
+    "failed": "操作失败。",
+    "none": "还没有快照。",
+    "restore": "恢复",
+    "confirmRestore": "用此快照覆盖"
+  },
+  "palette": {
+    "title": "命令",
+    "placeholder": "搜索命令、旅行和地点",
+    "noMatches": "没有匹配结果。",
+    "openLibrary": "前往旅行",
+    "openSettings": "前往设置",
+    "sortByDate": "按日期排序行程",
+    "trip": "旅行",
+    "city": "城市",
+    "country": "国家或地区"
+  },
+  "import": {
+    "title": "导入",
+    "hint": "粘贴文字行程、旅行 JSON、CSV、GeoJSON、GPX 或 KML。确认前不会写入数据。",
+    "paste": "粘贴或拖入内容",
+    "chooseFile": "选择文件",
+    "read": "读取",
+    "matching": "正在匹配地点",
+    "apply": "应用",
+    "back": "返回",
+    "failed": "无法应用导入内容。",
+    "nothingFound": "没有读取到地点。",
+    "summary": "创建 {{created}} 处地点，复用 {{reused}} 处，跳过 {{skipped}} 处。",
+    "replaceSummary": "将当前旅行替换为导入的 {{id}}。",
+    "reuse": "复用{{city}}",
+    "create": "创建{{city}}，{{country}}",
+    "unmatched": "未匹配，稍后手动添加",
+    "problem": {
+      "csvMissingName": "第 {{position}} 行缺少地点名称。",
+      "geoJsonNotPoint": "第 {{position}} 个要素不是点。",
+      "invalidJson": "内容看起来是 JSON，但无法解析。",
+      "invalidXml": "文件不是有效的 XML。",
+      "unsupportedJson": "此 JSON 不是旅行、备份或 GeoJSON 集合。",
+      "unsupportedXml": "此 XML 不是 GPX 或 KML。"
+    },
+    "column": {
+      "row": "行",
+      "parsed": "读取结果",
+      "match": "匹配"
+    }
+  },
+  "issueFix": {
+    "trip": {
+      "startsWithStay": "将{{city}}设为出发地",
+      "rangeMismatch": "使旅行日期与行程一致"
+    },
+    "move": {
+      "consecutive": "合并为一段旅程"
+    },
+    "stay": {
+      "missingGallery": "移除引用",
+      "notReached": "将此段终点设为{{city}}"
+    },
+    "outing": {
+      "notBack": "添加返回{{city}}的交通"
+    },
+    "leg": {
+      "missingGallery": "移除引用",
+      "identicalEndpoints": "移除此段交通",
+      "flightOnNonFlight": "移除航班信息",
+      "ferryOnNonFerry": "移除轮渡信息"
+    }
+  },
+  "issues": {
+    "trip": {
+      "titleRequired": "旅行需要标题。",
+      "invalidStart": "旅行开始时间不是有效日期。",
+      "invalidEnd": "旅行结束时间不是有效日期。",
+      "endBeforeStart": "旅行结束早于开始。",
+      "unknownOrigin": "出发城市“{{cityId}}”不存在。",
+      "invalidMapFocus": "地图缩放级别不是数字。",
+      "coverImagePath": "封面路径应相对于媒体根地址，并以斜杠开头。",
+      "noSteps": "旅行还没有行程。",
+      "startsWithStay": "旅行从{{origin}}出发，但首项记录是在{{city}}停留。",
+      "rangeMismatch": "行程涵盖 {{sDate}} 至 {{eDate}}。"
+    },
+    "leg": {
+      "unknownCity": "交通前往不存在的城市“{{cityId}}”。",
+      "unknownVia": "交通途经不存在的城市“{{cityId}}”。",
+      "missingGallery": "{{city}}引用了不存在的相册“{{photoPath}}”。",
+      "identicalEndpoints": "这段{{mode}}交通的起终点均为{{city}}。",
+      "arrivalBeforeDeparture": "前往{{to}}的交通到达早于出发。",
+      "flightOnNonFlight": "{{mode}}交通中填写了航班信息。",
+      "ferryOnNonFerry": "{{mode}}交通中填写了轮渡信息。",
+      "impossibleSpeed": "从{{from}}到{{to}}仅用 {{minutes}} 分钟，超出这些交通方式的合理速度。"
+    },
+    "city": {
+      "unknownCountry": "城市“{{id}}”所属国家或地区“{{countryId}}”不存在。",
+      "timeZoneRequired": "城市“{{id}}”没有时区。",
+      "invalidCoordinates": "城市“{{id}}”的坐标超出范围。",
+      "nullIsland": "城市“{{id}}”坐标为 0,0，通常表示尚未设置位置。",
+      "unused": "城市“{{id}}”未用于任何旅行。"
+    },
+    "country": {
+      "nameRequired": "国家或地区“{{id}}”没有名称。",
+      "unknownContinent": "国家或地区“{{id}}”的大洲无效。",
+      "unknownCurrency": "国家或地区“{{id}}”的货币无效。"
+    },
+    "dataset": {
+      "duplicateId": "多个{{kind}}使用 ID“{{id}}”。"
+    },
+    "config": {
+      "unknownCity": "网站配置的 {{field}} 引用了不存在的城市“{{id}}”。"
+    },
+    "move": {
+      "consecutive": "两段旅程连续，中间没有停留。"
+    },
+    "stay": {
+      "unknownCity": "第 {{position}} 次停留引用了不存在的城市“{{cityId}}”。",
+      "endBeforeStart": "离开{{city}}的时间早于到达。",
+      "missingGallery": "{{city}}引用了不存在的相册“{{photoPath}}”。",
+      "notReached": "前往{{city}}之前的交通终点为{{arrivedAt}}。",
+      "noMoveBetween": "没有记录从{{from}}到{{to}}的交通。",
+      "overlap": "到达{{city}}的时间早于离开{{previous}}。"
+    },
+    "outing": {
+      "outsideStay": "{{date}} 的一日游不在{{city}}停留期间。",
+      "notBack": "{{date}} 的一日游没有返回{{city}}。"
+    }
+  },
+  "story": {
+    "tripDetails": "旅行名称、封面和结束日期",
+    "endHint": "根据行程计算，仅在最后一段交通没有日期时修改。",
+    "startedIn": "旅行从哪里开始？",
+    "startedOn": "出发日期",
+    "removeJourney": "移除此段旅程",
+    "addStopOnTheWay": "添加换乘或沿途游览地点",
+    "whatNext": "你现在在{{city}}，接下来做了什么？",
+    "backHome": "已返回{{city}}。旅行可以结束，也可继续。",
+    "howManyNights": "晚数",
+    "sleepHere": "在{{city}}住宿",
+    "travelTo": "从{{city}}前往…",
+    "travelOn": "从{{city}}继续前往…",
+    "returnHome": "返回居住地",
+    "removeStay": "移除在{{city}}的停留",
+    "checkIn": "到达日期",
+    "leftOn": "于 {{date}} 离开",
+    "photos": "照片",
+    "dayTrip": "一日游",
+    "dayTripDate": "日期",
+    "removeDayTrip": "移除此一日游",
+    "addPlaceToDayTrip": "为此一日游添加地点",
+    "addDayTrip": "从{{city}}出发一日游",
+    "how": "如何出行？",
+    "goingTo": "目的地",
+    "departs": "出发",
+    "arrives": "到达",
+    "localTime": "{{zone}} 当地时间",
+    "estimatedHint": "未填写，网站将显示约 {{value}}。",
+    "visited": "已游览",
+    "visitedLabel": "我在此停留并游览",
+    "removeRide": "移除此段交通",
+    "placeFor": {
+      "travel": "去了哪里？",
+      "dayTrip": "一日游去了哪里？",
+      "addToChain": "添加地点"
+    },
+    "clearMapFocus": "清除已保存的地图视图",
+    "chapter": {
+      "there": "出发",
+      "onward": "继续旅程",
+      "home": "返程"
+    },
+    "nightsCount_one": "{{count}} 晚",
+    "nightsCount_other": "{{count}} 晚"
+  },
+  "upload": {
+    "open": "上传照片",
+    "title": "上传照片和视频",
+    "where": "保存到哪里？",
+    "local": "本机（media 文件夹）",
+    "bunny": "Bunny CDN",
+    "bunnyMissing": "Bunny CDN（需在 env/.env 添加密钥）",
+    "drop": "将照片和视频拖到此处，或点击选择",
+    "hint": "照片会生成展示图和 WEBP 缩略图；视频只生成缩略图，之后需通过导入补充 YouTube ID。",
+    "hintNoVideo": "照片会生成展示图和 WEBP 缩略图。安装 ffmpeg 后也可上传视频。",
+    "progress": "{{name}} 上传进度",
+    "status": {
+      "waiting": "等待中…",
+      "uploading": "正在上传 {{percent}}%",
+      "processing": "正在调整尺寸…",
+      "done": "完成",
+      "failed": "失败"
+    },
+    "videoDone": "已完成，请通过导入补充 YouTube ID",
+    "retry": "重试",
+    "summary": "已完成 {{done}} / {{total}}",
+    "saved_one": "已向相册添加 {{count}} 个文件。",
+    "saved_other": "已向相册添加 {{count}} 个文件。",
+    "saveFailed": "文件已上传，但相册保存失败。",
+    "configFailed": "无法连接编辑器上传服务。",
+    "close": "关闭"
+  },
+  "confirm": {
+    "deleteTrip": {
+      "title": "删除“{{trip}}”？",
+      "message": "将从 data/ 删除旅行文件。删除前会创建快照，可在设置中恢复。",
+      "action": "删除旅行"
+    },
+    "deleteDocument": {
+      "title": "删除{{name}}？",
+      "message": "将从 data/ 删除文件，仍引用它的旅行会显示校验问题。",
+      "action": "删除"
+    },
+    "restore": {
+      "title": "恢复{{name}}？",
+      "message": "data/ 中的所有文件将被此快照替换。请先创建快照，以免丢失之后的更改。",
+      "action": "恢复"
+    },
+    "removeStay": {
+      "title": "移除在{{city}}的停留？",
+      "message": "将移除此停留及其一日游，可撤销恢复。",
+      "action": "移除停留"
+    },
+    "removeDayTrip": {
+      "title": "移除 {{date}} 的一日游？",
+      "message": "将移除其中的所有地点和交通，可撤销恢复。",
+      "action": "移除一日游"
+    },
+    "removeJourney": {
+      "title": "移除此段旅程？",
+      "message": "将移除其中的所有交通，可撤销恢复。",
+      "action": "移除旅程"
+    },
+    "removeRide": {
+      "title": "移除 {{from}} → {{to}}？",
+      "message": "将从旅行中移除此段交通，可撤销恢复。",
+      "action": "移除交通"
+    },
+    "removeLocale": {
+      "title": "移除 {{locale}}？",
+      "message": "不再提供此语言的名称编辑字段，已填写的译名仍保存在文件中。",
+      "action": "移除语言"
+    },
+    "removeCompany": {
+      "title": "移除{{name}}？",
+      "message": "引用此公司的旅行将显示 ID，无法显示名称和标志。",
+      "action": "移除公司"
+    }
+  }
+}
