@@ -76,7 +76,6 @@
     "citiesPerCountry": "各国家和地区的城市数",
     "provinces": {
       "title": "中国省级区划覆盖率",
-      "hint": "与七大洲统计口径一致；同一省级区划只计一次，含港澳台。",
       "visited": "已覆盖",
       "unvisited": "未覆盖",
       "loading": "正在读取省级区划…",

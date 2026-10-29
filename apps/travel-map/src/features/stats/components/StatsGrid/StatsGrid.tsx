@@ -249,7 +249,15 @@ export function StatsGrid({
           </div>
         </div>
       ) : (
-        <EmptyState message={t("stats.empty")} />
+        <div className="stats-bento" ref={bentoRef}>
+          <CoverageCard
+            allContinents={stats.allContinents}
+            totalContinents={TOTAL_CONTINENTS}
+            visitedContinents={stats.visitedContinents}
+          />
+          <ProvinceCoverageCard />
+          <EmptyState message={t("stats.empty")} />
+        </div>
       )}
     </div>
   );

@@ -76,7 +76,6 @@
     "citiesPerCountry": "Città per Paese",
     "provinces": {
       "title": "Copertura delle province cinesi",
-      "hint": "Usa gli stessi luoghi visitati dei continenti. Ogni regione conta una volta, incluse Hong Kong, Macao e Taiwan.",
       "visited": "Visitata",
       "unvisited": "Non visitata",
       "loading": "Caricamento delle province…",

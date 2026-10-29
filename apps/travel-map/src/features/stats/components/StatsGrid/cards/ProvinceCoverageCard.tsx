@@ -35,7 +35,6 @@ export function ProvinceCoverageCard(): ReactNode {
           <span>/ 34</span>
         </div>
       </div>
-      <p className="province-coverage__hint">{t("stats.provinces.hint")}</p>
       {data ? (
         <>
           <progress

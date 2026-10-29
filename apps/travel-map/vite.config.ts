@@ -121,7 +121,23 @@ const siteConfig: unknown = existsSync(siteConfigPath)
   ? JSON.parse(readFileSync(siteConfigPath, "utf8"))
   : {};
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  /* Checks and builds must not overwrite a running local server's optimizer. */
+  cacheDir:
+    mode === "local-dev"
+      ? "node_modules/.vite-local-dev"
+      : process.env.VITEST
+        ? "node_modules/.vite-test"
+        : "node_modules/.vite",
+  /* Prepare lazy gallery and statistics dependencies before route navigation. */
+  optimizeDeps: {
+    include: [
+      "react-photo-album",
+      "react-image-gallery",
+      "react-apexcharts",
+      "swr",
+    ],
+  },
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] }),
@@ -189,4 +205,4 @@ export default defineConfig({
     },
   },
   envDir: "./env",
-});
+}));

@@ -138,7 +138,7 @@ try {
         foreach ($service in $services) {
             $appRoot = Join-Path $projectRoot "apps\$($service.Folder)"
             $vitePath = Join-Path $appRoot 'node_modules\vite\bin\vite.js'
-            $running = Start-Process -FilePath $nodePath -ArgumentList ('"' + $vitePath + '"') `
+            $running = Start-Process -FilePath $nodePath -ArgumentList ('"' + $vitePath + '" --mode local-dev') `
                 -WorkingDirectory $appRoot -WindowStyle Hidden -PassThru `
                 -RedirectStandardOutput (Join-Path $runtimeRoot "$($service.Name).out.log") `
                 -RedirectStandardError (Join-Path $runtimeRoot "$($service.Name).err.log")

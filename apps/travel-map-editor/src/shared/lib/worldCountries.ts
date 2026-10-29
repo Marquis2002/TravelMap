@@ -163,7 +163,7 @@ const catalogueByCode = new Map(
  * @returns {WorldCountry | undefined} The catalogue entry, when known
  */
 export function findWorldCountry(id: string): WorldCountry | undefined {
-  return catalogueById.get(id);
+  return catalogueById.get(id === "Taiwan" ? "China" : id);
 }
 
 /**
@@ -173,7 +173,8 @@ export function findWorldCountry(id: string): WorldCountry | undefined {
  * @returns {WorldCountry | undefined} The catalogue entry, when known
  */
 export function findWorldCountryByCode(code: string): WorldCountry | undefined {
-  return catalogueByCode.get(code);
+  /* Keep source region codes searchable while creating places under China. */
+  return catalogueByCode.get(["TW", "HK", "MO"].includes(code) ? "CN" : code);
 }
 
 /**

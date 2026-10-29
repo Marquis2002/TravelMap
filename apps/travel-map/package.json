@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc && vite build",
     "deploygh": "gh-pages -d dist --nojekyll",
-    "dev": "vite",
+    "dev": "vite --mode local-dev",
     "knip": "knip",
     "lint": "eslint . --report-unused-disable-directives --max-warnings=0",
     "lint:fix": "eslint . --fix --max-warnings=0",

@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { coveredProvinces, loadProvinces } from "./provinces";
+import { coveredProvinces, loadProvinces, Province } from "./provinces";
 
 afterEach(() => vi.unstubAllGlobals());
 
@@ -38,7 +38,7 @@ describe("China provincial coverage", () => {
   });
 
   it("does not treat polygon holes as visited land", () => {
-    const provinces = [
+    const provinces: Province[] = [
       {
         code: 1,
         name: "Test",
@@ -62,12 +62,7 @@ describe("China provincial coverage", () => {
         ],
       },
     ];
-    expect(
-      coveredProvinces(
-        [[2, 2]],
-        provinces as Parameters<typeof coveredProvinces>[1],
-      ).size,
-    ).toBe(0);
+    expect(coveredProvinces([[2, 2]], provinces).size).toBe(0);
   });
 
   it("rejects failed downloads instead of displaying false zero coverage", async () => {

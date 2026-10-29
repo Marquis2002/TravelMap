@@ -18,7 +18,14 @@ import { snapshots } from "./vite/snapshots.ts";
 const appSource = resolve(import.meta.dirname, "../travel-map/src");
 const appStyles = resolve(appSource, "styles");
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  /* Checks and builds must not overwrite a running local editor's optimizer. */
+  cacheDir:
+    mode === "local-dev"
+      ? "node_modules/.vite-local-dev"
+      : process.env.VITEST
+        ? "node_modules/.vite-test"
+        : "node_modules/.vite",
   plugins: [
     react(),
     svgr(),
@@ -49,4 +56,4 @@ export default defineConfig({
     strictPort: true,
     watch: { usePolling: true },
   },
-});
+}));

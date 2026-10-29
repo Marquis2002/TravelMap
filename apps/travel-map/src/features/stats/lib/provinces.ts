@@ -8,7 +8,7 @@ const boundarySchema = z.looseObject({
   features: z.array(
     z.looseObject({
       properties: z.looseObject({
-        adcode: z.coerce.number(),
+        adcode: z.union([z.number(), z.string()]),
         name: z.string().optional(),
         level: z.string().optional(),
       }),
@@ -51,7 +51,9 @@ export async function loadProvinces(url: string): Promise<Province[]> {
   if (!response.ok) throw new Error("Province map unavailable");
   const data = boundarySchema.parse(await response.json());
   const provinces = data.features.flatMap(({ properties, geometry }) =>
-    properties.level === "province" && properties.name
+    properties.level === "province" &&
+    properties.name &&
+    typeof properties.adcode === "number"
       ? [
           {
             code: properties.adcode,

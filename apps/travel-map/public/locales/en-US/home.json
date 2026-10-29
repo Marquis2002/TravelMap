@@ -76,7 +76,6 @@
     "citiesPerCountry": "Cities per Country",
     "provinces": {
       "title": "China provincial coverage",
-      "hint": "Uses the same visited places as continent coverage. Each region counts once, including Hong Kong, Macao and Taiwan.",
       "visited": "Visited",
       "unvisited": "Not visited",
       "loading": "Loading provinces…",
